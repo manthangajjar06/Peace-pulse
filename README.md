@@ -33,7 +33,7 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 ## 🖼️ Screenshots
 
 ### 🏠 Homepage
-![Homepage](screenshots/books.png)
+![Homepage](screenshots/homepage.png)
 
 ### 🔐 Login Page
 ![Login](screenshots/login.png)
