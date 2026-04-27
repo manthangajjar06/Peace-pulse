@@ -33,55 +33,55 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 ## 🖼️ Screenshots
 
 ### 🏠 Homepage
-![Homepage](homepage.png)
+![Homepage](screenshots/books.png)
 
 ### 🔐 Login Page
-![Login](login.png)
+![Login](screenshots/login.png)
 
 ### 📝 Register Page
-![Register](register.png)
+![Register](screenshots/register.png)
 
 ### 👥 Community Page
-![Community](community.png)
+![Community](screenshots/community.png)
 
 ### 📚 Books Library
-![Books](books.png)
+![Books](screenshots/books.png)
 
 ### 🙏 Religious Books
-![Religious Books](religiousbooks.png)
+![Religious Books](screenshots/religiousbooks.png)
 
 ### 💬 Quotes Page
-![Quotes](quotes.png)
+![Quotes](screenshots/quotes.png)
 
 ### 🩺 Doctor Directory
-![Doctor](doctor.png)
+![Doctor](screenshots/doctor.png)
 
 ### 🎬 Motivational Videos
-![Motivational Videos](motivideo.png)
+![Motivational Videos](screenshots/motivideo.png)
 
 ### 🎮 Games Section
-![Games Section](gamesec.png)
+![Games Section](screenshots/gamesec.png)
 
 ### 🐍 Snake Game
-![Snake Game](snakegame.png)
+![Snake Game](screenshots/snakegame.png)
 
 ### 🧱 Tetris Game
-![Tetris](tetrisgame.png)
+![Tetris](screenshots/tetrisgame.png)
 
 ### ❌⭕ Tic Tac Toe
-![Tic Tac Toe](tictactoe.png)
+![Tic Tac Toe](screenshots/tictactoe.png)
 
 ### ⚔️ Features Page
-![Features Page](ftrpg.png)
+![Features Page](screenshots/ftrpg.png)
 
 ### 📊 Mood Tracker
-![Mood Tracker](moodtracker.png)
+![Mood Tracker](screenshots/moodtracker.png)
 
 ### 🤖 AI Chatbot Therapist
-![Chatbot](chatbot.png)
+![Chatbot](screenshots/chatbot.png)
 
 ### 🎯 Mission Page
-![Mission](mission.png)
+![Mission](screenshots/mission.png)
 
 ---
 
