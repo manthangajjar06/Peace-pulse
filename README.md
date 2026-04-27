@@ -23,7 +23,7 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 | Snake Game | `/snakegame` | Classic snake game |
 | Tetris Game | `/tetrisgame` | Classic tetris game |
 | Tic Tac Toe | `/tictactoe` | Classic tic-tac-toe game |
-| Fantasy RPG | `/ftrpg` | RPG-style text adventure game |
+| Features Page | `/ftrpg` | RPG-style text adventure game |
 | Mood Tracker | `/moodtracker` | Chart-based mood assessment tool |
 | AI Chatbot | `/chatbot` | AI therapist chatbot |
 | Mission | `/mission` | About PeacePulse's mission |
@@ -33,72 +33,55 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 ## 🖼️ Screenshots
 
 ### 🏠 Homepage
-![Homepage](<img width="1440" height="5284" alt="homepage" src="https://github.com/user-attachments/assets/91a6490c-08d8-4313-b36f-7f64dab33916" />
-)
+![Homepage](Peace-pulse/homepage.png)
 
 ### 🔐 Login Page
-![Login](<img width="1440" height="900" alt="login" src="https://github.com/user-attachments/assets/6b8c7510-e2ac-468e-9a6e-89ca055d5d5e" />
-)
+![Login](Peace-pulse/login.png)
 
 ### 📝 Register Page
-![Register](<img width="1440" height="900" alt="register" src="https://github.com/user-attachments/assets/6a5f9c36-35f2-499a-afb9-a65836e37491" />
-)
+![Register](Peace-pulse/register.png)
 
 ### 👥 Community Page
-![Community](<img width="1440" height="1517" alt="community" src="https://github.com/user-attachments/assets/a9fcf546-3001-4516-9830-e5d33ce9d659" />
-)
+![Community](Peace-pulse/community.png)
 
 ### 📚 Books Library
-![Books](<img width="1440" height="1846" alt="books" src="https://github.com/user-attachments/assets/422a6800-99d6-484e-9fa2-750b0cda15af" />
-)
+![Books](Peace-pulse/books.png)
 
 ### 🙏 Religious Books
-![Religious Books](<img width="1440" height="1632" alt="religiousbooks" src="https://github.com/user-attachments/assets/621332b9-187f-470b-a39d-38aa24fc1a3f" />
-)
+![Religious Books](Peace-pulse/religiousbooks.png)
 
 ### 💬 Quotes Page
-![Quotes](<img width="1440" height="1624" alt="quotes" src="https://github.com/user-attachments/assets/421c324f-9e9f-4b6e-ab40-488ba084f8c8" />
-)
+![Quotes](Peace-pulse/quotes.png)
 
 ### 🩺 Doctor Directory
-![Doctor](<img width="1440" height="1933" alt="doctor" src="https://github.com/user-attachments/assets/0bc92218-578b-44af-9357-3d77db6b64ac" />
-)
+![Doctor](Peace-pulse/doctor.png)
 
 ### 🎬 Motivational Videos
-![Motivational Videos](<img width="1440" height="1311" alt="motivideo" src="https://github.com/user-attachments/assets/7de2d288-33c7-494d-b1d5-ea5fa0c1bcdc" />
-)
+![Motivational Videos](Peace-pulse/motivideo.png)
 
 ### 🎮 Games Section
-![Games Section](<img width="1440" height="1913" alt="gamesec" src="https://github.com/user-attachments/assets/01c5e49b-321e-4f7d-aabf-c3652d48efd2" />
-)
+![Games Section](Peace-pulse/gamesec.png)
 
 ### 🐍 Snake Game
-![Snake Game](<img width="1440" height="900" alt="snakegame" src="https://github.com/user-attachments/assets/6aeada19-2895-43d2-bb4d-456240a257d2" />
-)
+![Snake Game](Peace-pulse/snakegame.png)
 
 ### 🧱 Tetris Game
-![Tetris](<img width="1440" height="900" alt="tetrisgame" src="https://github.com/user-attachments/assets/171a7312-e192-4ba1-bc53-2339e56edd5d" />
-)
+![Tetris](Peace-pulse/tetrisgame.png)
 
 ### ❌⭕ Tic Tac Toe
-![Tic Tac Toe](<img width="1440" height="900" alt="tictactoe" src="https://github.com/user-attachments/assets/15d739a6-ce84-4fdf-9a97-7bd894861fcc" />
-)
+![Tic Tac Toe](Peace-pulse/tictactoe.png)
 
 ### ⚔️ Features Page
-![Features Page](<img width="1440" height="2799" alt="ftrpg" src="https://github.com/user-attachments/assets/b93d7236-2557-4406-9f43-bf9696a90b26" />
-)
+![Features Page](Peace-pulse/ftrpg.png)
 
 ### 📊 Mood Tracker
-![Mood Tracker](<img width="1440" height="900" alt="moodtracker" src="https://github.com/user-attachments/assets/9aae6499-9a8f-4d7f-b0ed-60658de0ba30" />
-)
+![Mood Tracker](Peace-pulse/moodtracker.png)
 
 ### 🤖 AI Chatbot Therapist
-![Chatbot](<img width="1440" height="900" alt="chatbot" src="https://github.com/user-attachments/assets/a8e8362d-c46b-401e-8c59-adff506f084f" />
-)
+![Chatbot](Peace-pulse/chatbot.png)
 
 ### 🎯 Mission Page
-![Mission](<img width="1440" height="1926" alt="mission" src="https://github.com/user-attachments/assets/16432805-6466-4c80-bb38-cda3d16dc50a" />
-)
+![Mission](Peace-pulse/mission.png)
 
 ---
 
@@ -128,7 +111,7 @@ peace_pulse/
     ├── snakegame.html          # Snake game
     ├── tetrisgame.html         # Tetris game
     ├── tictactoe.html          # Tic Tac Toe game
-    ├── ftrpg.html              # Fantasy RPG text game
+    ├── ftrpg.html              # Features Page
     ├── moodtracker.html        # Mood tracking with Chart.js
     ├── chatbot.html            # AI therapist chatbot
     ├── MISSIONPAGE.HTML        # Mission/about page
@@ -557,7 +540,7 @@ Copy the output and paste it as your `JWT_SECRET` value.
 - **📚 Book Library** — Self-help and spiritual books with embedded PDFs
 - **🤖 AI Chatbot** — In-browser AI therapist for mental wellness support
 - **📊 Mood Tracker** — Visual mood assessment with Chart.js graphs
-- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Fantasy RPG for relaxation
+- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Features Page for relaxation
 - **🩺 Doctor Directory** — Find mental health professionals
 - **🎬 Motivational Videos** — Curated YouTube content
 - **💬 Quotes** — Daily inspirational quotes
