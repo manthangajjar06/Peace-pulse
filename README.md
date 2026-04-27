@@ -33,55 +33,55 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 ## 🖼️ Screenshots
 
 ### 🏠 Homepage
-![Homepage](Peace-pulse/homepage.png)
+![Homepage](homepage.png)
 
 ### 🔐 Login Page
-![Login](Peace-pulse/login.png)
+![Login](login.png)
 
 ### 📝 Register Page
-![Register](Peace-pulse/register.png)
+![Register](register.png)
 
 ### 👥 Community Page
-![Community](Peace-pulse/community.png)
+![Community](community.png)
 
 ### 📚 Books Library
-![Books](Peace-pulse/books.png)
+![Books](books.png)
 
 ### 🙏 Religious Books
-![Religious Books](Peace-pulse/religiousbooks.png)
+![Religious Books](religiousbooks.png)
 
 ### 💬 Quotes Page
-![Quotes](Peace-pulse/quotes.png)
+![Quotes](quotes.png)
 
 ### 🩺 Doctor Directory
-![Doctor](Peace-pulse/doctor.png)
+![Doctor](doctor.png)
 
 ### 🎬 Motivational Videos
-![Motivational Videos](Peace-pulse/motivideo.png)
+![Motivational Videos](motivideo.png)
 
 ### 🎮 Games Section
-![Games Section](Peace-pulse/gamesec.png)
+![Games Section](gamesec.png)
 
 ### 🐍 Snake Game
-![Snake Game](Peace-pulse/snakegame.png)
+![Snake Game](snakegame.png)
 
 ### 🧱 Tetris Game
-![Tetris](Peace-pulse/tetrisgame.png)
+![Tetris](tetrisgame.png)
 
 ### ❌⭕ Tic Tac Toe
-![Tic Tac Toe](Peace-pulse/tictactoe.png)
+![Tic Tac Toe](tictactoe.png)
 
 ### ⚔️ Features Page
-![Features Page](Peace-pulse/ftrpg.png)
+![Features Page](ftrpg.png)
 
 ### 📊 Mood Tracker
-![Mood Tracker](Peace-pulse/moodtracker.png)
+![Mood Tracker](moodtracker.png)
 
 ### 🤖 AI Chatbot Therapist
-![Chatbot](Peace-pulse/chatbot.png)
+![Chatbot](chatbot.png)
 
 ### 🎯 Mission Page
-![Mission](Peace-pulse/mission.png)
+![Mission](mission.png)
 
 ---
 
