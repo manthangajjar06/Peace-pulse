@@ -6,6 +6,23 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 
 ---
 
+## 🎬 Project Demo Video
+
+https://github.com/YOUR_USERNAME/peace-pulse/assets/YOUR_ASSET_ID/project_video.mp4
+
+> **How to upload your video to GitHub (replace the placeholder URL above):**
+> 1. Go to your repository on GitHub
+> 2. Open `README.md` and click the **pencil ✏️ (Edit this file)** icon
+> 3. In the editor, **drag and drop** your `project_video.mp4` directly into the text area
+> 4. Wait a few seconds — GitHub uploads it and replaces it with a real URL like:
+>    `https://github.com/username/repo/assets/123456789/project_video.mp4`
+> 5. Delete the placeholder line above and paste that new URL in its place
+> 6. Click **Commit changes** — the video will now play directly inside the README ✅
+>
+> ⚠️ Supported formats: `.mp4`, `.mov`, `.webm` · Max file size: **10 MB**
+
+---
+
 ## 🌐 Live Pages Overview
 
 | Page | Route | Description |
@@ -23,7 +40,7 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 | Snake Game | `/snakegame` | Classic snake game |
 | Tetris Game | `/tetrisgame` | Classic tetris game |
 | Tic Tac Toe | `/tictactoe` | Classic tic-tac-toe game |
-| Features Page | `/ftrpg` | RPG-style text adventure game |
+| Fantasy RPG | `/ftrpg` | RPG-style text adventure game |
 | Mood Tracker | `/moodtracker` | Chart-based mood assessment tool |
 | AI Chatbot | `/chatbot` | AI therapist chatbot |
 | Mission | `/mission` | About PeacePulse's mission |
@@ -71,8 +88,8 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 ### ❌⭕ Tic Tac Toe
 ![Tic Tac Toe](screenshots/tictactoe.png)
 
-### ⚔️ Features Page
-![Features Page](screenshots/ftrpg.png)
+### ⚔️ Fantasy RPG
+![Fantasy RPG](screenshots/ftrpg.png)
 
 ### 📊 Mood Tracker
 ![Mood Tracker](screenshots/moodtracker.png)
@@ -111,7 +128,7 @@ peace_pulse/
     ├── snakegame.html          # Snake game
     ├── tetrisgame.html         # Tetris game
     ├── tictactoe.html          # Tic Tac Toe game
-    ├── ftrpg.html              # Features Page
+    ├── ftrpg.html              # Fantasy RPG text game
     ├── moodtracker.html        # Mood tracking with Chart.js
     ├── chatbot.html            # AI therapist chatbot
     ├── MISSIONPAGE.HTML        # Mission/about page
@@ -540,35 +557,11 @@ Copy the output and paste it as your `JWT_SECRET` value.
 - **📚 Book Library** — Self-help and spiritual books with embedded PDFs
 - **🤖 AI Chatbot** — In-browser AI therapist for mental wellness support
 - **📊 Mood Tracker** — Visual mood assessment with Chart.js graphs
-- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Features Page for relaxation
+- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Fantasy RPG for relaxation
 - **🩺 Doctor Directory** — Find mental health professionals
 - **🎬 Motivational Videos** — Curated YouTube content
 - **💬 Quotes** — Daily inspirational quotes
 - **🙏 Religious Books** — Bhagavad Gita, Bible, Quran PDFs
 - **📱 Responsive Design** — Mobile-first with glassmorphism UI
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "Add your feature"`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-## 👨‍💻 Author
-
-Built with 💙 as a mental wellness platform to help people find peace, community, and growth.
-
----
 
 > *"Take care of your mind, and your mind will take care of you."*
