@@ -8,18 +8,7 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 
 ## 🎬 Project Demo Video
 
-https://github.com/YOUR_USERNAME/peace-pulse/assets/YOUR_ASSET_ID/project_video.mp4
-
-> **How to upload your video to GitHub (replace the placeholder URL above):**
-> 1. Go to your repository on GitHub
-> 2. Open `README.md` and click the **pencil ✏️ (Edit this file)** icon
-> 3. In the editor, **drag and drop** your `project_video.mp4` directly into the text area
-> 4. Wait a few seconds — GitHub uploads it and replaces it with a real URL like:
->    `https://github.com/username/repo/assets/123456789/project_video.mp4`
-> 5. Delete the placeholder line above and paste that new URL in its place
-> 6. Click **Commit changes** — the video will now play directly inside the README ✅
->
-> ⚠️ Supported formats: `.mp4`, `.mov`, `.webm` · Max file size: **10 MB**
+https://github.com/manthangajjar06/Peace-pulse/blob/main/project_video.mp4
 
 ---
 
