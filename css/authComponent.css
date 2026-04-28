@@ -1,0 +1,189 @@
+/* Auth Component Styles */
+.auth-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Sign In Button */
+.signupbtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 100px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.signupbtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile Container */
+.profile-container {
+    position: relative;
+    display: none;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: clamp(35px, 5vw, 45px);
+    height: clamp(35px, 5vw, 45px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+}
+
+.profile-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    display: none;
+    z-index: 1000;
+    padding: 0;
+    transform-origin: top right;
+    animation: dropdownFade 0.3s ease;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+/* Profile Info Styles */
+.profile-info {
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-header h3 {
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.profile-details {
+    margin: 20px 0;
+}
+
+.profile-field {
+    margin-bottom: 15px;
+}
+
+.profile-field label {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.profile-value {
+    font-size: 1em;
+    color: #333;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+/* Profile Actions */
+.profile-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    width: 100%;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+/* Animation */
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-dropdown {
+        min-width: 250px;
+    }
+    
+    .signupbtn {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-dropdown {
+        min-width: 220px;
+        right: -20px;
+    }
+} 
