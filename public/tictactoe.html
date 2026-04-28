@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Tic Tac Toe">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Tic Tac Toe">
+  <meta name="author" content="Tetiana Rohalska">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Tic Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      min-font-size: 14px;
+      -webkit-text-size-adjust: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-color: #2575fc;
+      --secondary-color: #6a11cb;
+      --text-color: #333;
+      --light-bg: #f4f4f9;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --min-font-size: 14px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 10px;
+      left: 5%;
+      right: 5%;
+      background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      padding: 15px 25px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    .navbar .logo {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 30px;
+      position: relative;
+      height: 100%;
+    }
+
+    .nav-links a {
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      color: var(--white);
+      font-weight: 500;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.50);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar.scrolled .logo {
+      color: var(--primary-color);
+      text-shadow: none;
+    }
+
+    .navbar.scrolled .nav-links a {
+      color: var(--text-color);
+      text-shadow: none;
+    }
+
+    .navbar.scrolled .nav-links .signupbtn {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links .signupbtn {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links .signupbtn:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-icon {
+      width: 35px;
+      height: 35px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      margin: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .profile-icon {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+      background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin: 20px 0;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .game-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 200px;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    input {
+      padding: 8px 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .level-select {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .level-btn {
+      padding: 10px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .level-btn:hover {
+      background: #f8f9fa;
+    }
+
+    .level-btn.active {
+      background: #4CAF50;
+      color: white;
+      border-color: #4CAF50;
+    }
+
+    .game-board {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #field {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .cell {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .cell:hover {
+      background: #f8f9fa;
+    }
+
+    .cell.x {
+      color: #4CAF50;
+    }
+
+    .cell.o {
+      color: #ff4757;
+    }
+
+    .game-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .player-info {
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .player-info.active {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .turns {
+      text-align: center;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    #status {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #2c3e50;
+      text-align: center;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .button-box {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button-box:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .welcome-screen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .welcome-screen h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .welcome-screen p {
+      color: #495057;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .game-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="homepage.html" class="logo" style="color: white;">PeacePulse</a>
+    <div class="nav-links">
+      <a href="homepage.html" style="color: white;">Home</a>
+      <a href="MISSIONPAGE.HTML" style="color: white;">Our Mission</a>
+      <a href="ftrpg.html" style="color: white;">Features</a>
+      <div class="auth-buttons">
+        <button class="sign-in-btn" id="signInBtn">Sign In</button>
+        <div class="profile-icon" id="profileIcon" style="display: none;">
+          <i class="fas fa-user"></i>
+          <div class="profile-dropdown">
+            <div class="profile-info">
+              <p class="name" id="userName">Loading...</p>
+              <p class="email" id="userEmail">Loading...</p>
+            </div>
+            <div class="profile-actions">
+              <button class="profile-action" onclick="window.location.href='profile.html'">
+                <i class="fas fa-user-circle"></i> View Profile
+              </button>
+              <button class="profile-action" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <h1>Tic Tac Toe</h1>
+  <div class="game-container">
+    <div class="welcome-screen" id="welcomeScreen">
+      <h2>Welcome to Tic Tac Toe!</h2>
+      <div class="input-group">
+        <label for="player1_name">Your Name:</label>
+        <input type="text" id="player1_name" maxlength="20" placeholder="Enter your name" />
+      </div>
+      <div class="level-select">
+        <h3>Select Difficulty:</h3>
+        <button class="level-btn active" data-level="easy" onclick="selectLevel('easy')">Easy</button>
+        <button class="level-btn" data-level="medium" onclick="selectLevel('medium')">Medium</button>
+        <button class="level-btn" data-level="hard" onclick="selectLevel('hard')">Hard</button>
+      </div>
+      <button class="button-box" onclick="startGame()">Start Game</button>
+    </div>
+
+    <section class="sidebar">
+      <div class="input-group">
+        <label for="columns">Columns:</label>
+        <input type="number" id="columns" min="3" max="10" value="3" />
+      </div>
+      <div class="input-group">
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" min="3" max="10" value="3" />
+      </div>
+      <div class="input-group">
+        <label for="steps">Win length:</label>
+        <input type="number" id="steps" min="3" max="10" value="3" />
+      </div>
+      <button class="button-box" id="restart">Restart Game</button>
+    </section>
+
+    <section class="game-board">
+      <div id="field"></div>
+      <div class="game-info">
+        <div class="player-info" id="player1">Player X</div>
+        <div class="player-info" id="player2">Computer (O)</div>
+        <div class="turns">
+          <p>Turns: <span id="numberTurns">0</span></p>
+        </div>
+        <div id="status"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    'use strict'
+
+    const statusDisplay = document.getElementById('status');
+    const countField = document.getElementById('numberTurns');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const playField = document.getElementById('field');
+    const player1_name = document.getElementById('player1_name');
+    const player1 = document.getElementById('player1');
+    const player2 = document.getElementById('player2');
+
+    let gameActive = true;
+    let currentPlayer = 'X';
+    let gameState = [];
+    let cols, rows, steps, counter = 0;
+    let selectedLevel = 'easy';
+    let isPlayerTurn = true;
+
+    const winMessage = () => `${currentPlayer === 'X' ? player1_name.value || 'Player X' : 'Computer'} has won!`;
+    const drawMessage = () => `It's a draw!`;
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-level="${level}"]`).classList.add('active');
+    }
+
+    function checkInput(input) {
+      return Math.min(Math.max(+input, 3), 10);
+    }
+
+    function createMatrix() {
+      for (let i = 0; i < rows; i++) {
+        gameState[i] = Array(cols).fill(0);
+      }
+    }
+
+    function drawField() {
+      let cellSize = Math.min(60, window.innerWidth * 0.15);
+      let box = document.createElement('div');
+      box.setAttribute('id', 'container');
+
+      for (let i = 0; i < rows; i++) {
+        let row = document.createElement('div');
+        row.className = 'row';
+        for (let j = 0; j < cols; j++) {
+          let cell = document.createElement('div');
+          cell.setAttribute('id', `${i}_${j}`);
+          cell.className = 'cell';
+          cell.style.width = cell.style.height = `${cellSize}px`;
+          row.appendChild(cell);
+        }
+        box.appendChild(row);
+      }
+      playField.innerHTML = '';
+      playField.appendChild(box);
+    }
+
+    function startGame() {
+      if (!player1_name.value.trim()) {
+        alert('Please enter your name!');
+        return;
+      }
+
+      player1.innerHTML = player1_name.value || "Player X";
+      cols = checkInput(document.getElementById('columns').value);
+      rows = checkInput(document.getElementById('rows').value);
+      steps = checkInput(document.getElementById('steps').value);
+      
+      createMatrix();
+      drawField();
+      welcomeScreen.classList.add('hidden');
+      gameActive = true;
+      currentPlayer = 'X';
+      counter = 0;
+      isPlayerTurn = true;
+      
+      updateStatus();
+      updateTurns();
+      handlePlayerSwitch();
+      
+      document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleClick));
+    }
+
+    function isWinning(y, x) {
+      let winner = currentPlayer === 'X' ? 1 : 2;
+      let directions = [
+        { dy: 0, dx: 1 },
+        { dy: 1, dx: 0 },
+        { dy: 1, dx: 1 },
+        { dy: 1, dx: -1 }
+      ];
+
+      for (let { dy, dx } of directions) {
+        let count = 1;
+        for (let step = 1; step < steps; step++) {
+          let ny = y + step * dy, nx = x + step * dx;
+          if (ny >= 0 && ny < rows && nx >= 0 && nx < cols && gameState[ny][nx] === winner) count++;
+          else break;
+        }
+        for (let step = 1; step < steps; step++) {
+          let ny = y - step * dy, nx = x - step * dx;
+          if (ny >= 0 && ny < rows && nx >= 0 && nx < cols && gameState[ny][nx] === winner) count++;
+          else break;
+        }
+        if (count >= steps) {
+          gameActive = false;
+          statusDisplay.innerHTML = winMessage();
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function handlePlayerSwitch() {
+      [player1, player2].forEach((p, i) => {
+        p.classList.toggle('active', i === (currentPlayer === 'X' ? 0 : 1));
+      });
+    }
+
+    function updateStatus() {
+      statusDisplay.innerHTML = `Current player: ${currentPlayer === 'X' ? player1_name.value || 'Player X' : 'Computer'}`;
+    }
+
+    function updateTurns() {
+      countField.innerHTML = counter;
+    }
+
+    function computerMove() {
+      if (!gameActive || isPlayerTurn) return;
+
+      let move;
+      switch(selectedLevel) {
+        case 'easy':
+          move = getRandomMove();
+          break;
+        case 'medium':
+          move = Math.random() < 0.5 ? getBestMove() : getRandomMove();
+          break;
+        case 'hard':
+          move = getBestMove();
+          break;
+      }
+
+      if (move) {
+        const [y, x] = move;
+        makeMove(y, x);
+      }
+    }
+
+    function getRandomMove() {
+      let availableMoves = [];
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (gameState[i][j] === 0) {
+            availableMoves.push([i, j]);
+          }
+        }
+      }
+      return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+    }
+
+    function getBestMove() {
+      let bestScore = -Infinity;
+      let bestMove = null;
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (gameState[i][j] === 0) {
+            gameState[i][j] = 2;
+            let score = minimax(gameState, 0, false);
+            gameState[i][j] = 0;
+
+            if (score > bestScore) {
+              bestScore = score;
+              bestMove = [i, j];
+            }
+          }
+        }
+      }
+      return bestMove;
+    }
+
+    function minimax(board, depth, isMaximizing) {
+      let result = checkWinner();
+      if (result !== null) {
+        return result === 2 ? 10 - depth : depth - 10;
+      }
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            if (board[i][j] === 0) {
+              board[i][j] = 2;
+              let score = minimax(board, depth + 1, false);
+              board[i][j] = 0;
+              bestScore = Math.max(score, bestScore);
+            }
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            if (board[i][j] === 0) {
+              board[i][j] = 1;
+              let score = minimax(board, depth + 1, true);
+              board[i][j] = 0;
+              bestScore = Math.min(score, bestScore);
+            }
+          }
+        }
+        return bestScore;
+      }
+    }
+
+    function checkWinner() {
+      // Check rows
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j <= cols - steps; j++) {
+          let count = 0;
+          let player = gameState[i][j];
+          if (player === 0) continue;
+          for (let k = 0; k < steps; k++) {
+            if (gameState[i][j + k] === player) count++;
+          }
+          if (count === steps) return player;
+        }
+      }
+
+      // Check columns
+      for (let i = 0; i <= rows - steps; i++) {
+        for (let j = 0; j < cols; j++) {
+          let count = 0;
+          let player = gameState[i][j];
+          if (player === 0) continue;
+          for (let k = 0; k < steps; k++) {
+            if (gameState[i + k][j] === player) count++;
+          }
+          if (count === steps) return player;
+        }
+      }
+
+      // Check diagonals
+      for (let i = 0; i <= rows - steps; i++) {
+        for (let j = 0; j <= cols - steps; j++) {
+          let count = 0;
+          let player = gameState[i][j];
+          if (player === 0) continue;
+          for (let k = 0; k < steps; k++) {
+            if (gameState[i + k][j + k] === player) count++;
+          }
+          if (count === steps) return player;
+        }
+      }
+
+      // Check anti-diagonals
+      for (let i = 0; i <= rows - steps; i++) {
+        for (let j = steps - 1; j < cols; j++) {
+          let count = 0;
+          let player = gameState[i][j];
+          if (player === 0) continue;
+          for (let k = 0; k < steps; k++) {
+            if (gameState[i + k][j - k] === player) count++;
+          }
+          if (count === steps) return player;
+        }
+      }
+
+      // Check for draw
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          if (gameState[i][j] === 0) return null;
+        }
+      }
+      return 0; // Draw
+    }
+
+    function makeMove(y, x) {
+      if (!gameActive || gameState[y][x] !== 0) return;
+
+      gameState[y][x] = currentPlayer === 'X' ? 1 : 2;
+      const cell = document.getElementById(`${y}_${x}`);
+      cell.textContent = currentPlayer;
+      cell.classList.add(currentPlayer.toLowerCase());
+
+      if (isWinning(y, x)) {
+        gameActive = false;
+        statusDisplay.innerHTML = winMessage();
+        return;
+      }
+
+      if (counter === cols * rows - 1) {
+        gameActive = false;
+        statusDisplay.innerHTML = drawMessage();
+        return;
+      }
+
+      counter++;
+      updateTurns();
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      isPlayerTurn = !isPlayerTurn;
+      handlePlayerSwitch();
+      updateStatus();
+
+      if (!isPlayerTurn && gameActive) {
+        setTimeout(computerMove, 500);
+      }
+    }
+
+    function handleClick(event) {
+      if (!gameActive || !isPlayerTurn) return;
+      
+      let [i, j] = event.target.id.split('_').map(Number);
+      makeMove(i, j);
+    }
+
+    document.getElementById('restart').addEventListener('click', () => {
+      welcomeScreen.classList.remove('hidden');
+      playField.innerHTML = '';
+      gameState = [];
+      gameActive = true;
+      currentPlayer = 'X';
+      counter = 0;
+      isPlayerTurn = true;
+      statusDisplay.innerHTML = '';
+      updateTurns();
+      handlePlayerSwitch();
+    });
+
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modern Tetris Game</title>
+  <meta charset="UTF-8">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+  
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .game-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .score, .level {
+      background: #f8f9fa;
+      padding: 12px 25px;
+      border-radius: 8px;
+      color: #2c3e50;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+  
+    canvas {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      background: #f8f9fa;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .controls {
+      margin-top: 25px;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.95em;
+      font-weight: 500;
+    }
+
+    .game-over, .welcome-screen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 35px;
+      border-radius: 15px;
+      text-align: center;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-screen {
+      display: block;
+    }
+
+    .game-over {
+      display: none;
+    }
+
+    .start-btn, .restart-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-top: 25px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+    }
+
+    .start-btn:hover, .restart-btn:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(76, 175, 80, 0.3);
+    }
+
+    .start-btn:active, .restart-btn:active {
+      transform: translateY(0);
+    }
+
+    .instructions {
+      margin: 25px 0;
+      text-align: left;
+      line-height: 1.8;
+      color: #495057;
+    }
+
+    .key {
+      background: #f8f9fa;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin: 0 3px;
+      font-weight: 600;
+      color: #2c3e50;
+      border: 1px solid #e9ecef;
+      display: inline-block;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 2em;
+      font-weight: 600;
+    }
+
+    .game-over p {
+      font-size: 1.2em;
+      color: #495057;
+      margin: 15px 0;
+    }
+
+    #finalScore {
+      font-weight: 700;
+      color: #4CAF50;
+      font-size: 1.4em;
+    }
+
+    @media (max-width: 480px) {
+      .game-container {
+        padding: 20px;
+        margin: 15px;
+      }
+
+      .game-info {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .score, .level {
+        width: 100%;
+        text-align: center;
+      }
+
+      .welcome-screen, .game-over {
+        padding: 25px;
+        margin: 15px;
+      }
+    }
+
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      min-font-size: 14px;
+      -webkit-text-size-adjust: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-color: #2575fc;
+      --secondary-color: #6a11cb;
+      --text-color: #333;
+      --light-bg: #f4f4f9;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --min-font-size: 14px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 10px;
+      left: 5%;
+      right: 5%;
+      background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      padding: 15px 25px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.50);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar .logo {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 30px;
+      position: relative;
+      height: 100%;
+    }
+
+    .nav-links a {
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      color: var(--white);
+      font-weight: 500;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar.scrolled .logo {
+      color: var(--primary-color);
+      text-shadow: none;
+    }
+
+    .navbar.scrolled .nav-links a {
+      color: var(--text-color);
+      text-shadow: none;
+    }
+
+    .navbar.scrolled .nav-links .signupbtn {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links .signupbtn {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links .signupbtn:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-icon {
+      width: 35px;
+      height: 35px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      margin: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .profile-icon {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="homepage.html" class="logo" style="color: white;">PeacePulse</a>
+    <div class="nav-links">
+      <a href="homepage.html" style="color: white;">Home</a>
+      <a href="MISSIONPAGE.HTML" style="color: white;">Our Mission</a>
+      <a href="ftrpg.html" style="color: white;">Features</a>
+      <div class="auth-buttons">
+        <button class="sign-in-btn" id="signInBtn">Sign In</button>
+        <div class="profile-icon" id="profileIcon" style="display: none;">
+          <i class="fas fa-user"></i>
+          <div class="profile-dropdown">
+            <div class="profile-info">
+              <p class="name" id="userName">Loading...</p>
+              <p class="email" id="userEmail">Loading...</p>
+            </div>
+            <div class="profile-actions">
+              <button class="profile-action" onclick="window.location.href='profile.html'">
+                <i class="fas fa-user-circle"></i> View Profile
+              </button>
+              <button class="profile-action" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="game-container">
+    <div class="game-info">
+      <div class="score">Score: <span id="score">0</span></div>
+      <div class="level">Level: <span id="level">1</span></div>
+    </div>
+    <canvas width="320" height="640" id="game"></canvas>
+    <div class="controls">
+      Use arrow keys to move and rotate pieces
+    </div>
+  </div>
+
+  <div class="welcome-screen" id="welcomeScreen">
+    <h1>Tetris</h1>
+    <div class="instructions">
+      <p>Welcome to Tetris! Here's how to play:</p>
+      <p><span class="key">←</span> <span class="key">→</span> Move left/right</p>
+      <p><span class="key">↑</span> Rotate piece</p>
+      <p><span class="key">↓</span> Drop faster</p>
+      <p><span class="key">Space</span> Hard drop</p>
+      <p>Clear lines to score points and level up!</p>
+    </div>
+    <button class="start-btn" onclick="startGame()">Start Game</button>
+  </div>
+
+  <div class="game-over" id="gameOver">
+    <h2>Game Over!</h2>
+    <p>Final Score: <span id="finalScore">0</span></p>
+    <button class="restart-btn" onclick="restartGame()">Play Again</button>
+  </div>
+
+<script>
+// https://tetris.fandom.com/wiki/Tetris_Guideline
+
+// get a random integer between the range of [min,max]
+// @see https://stackoverflow.com/a/1527820/2124254
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// generate a new tetromino sequence
+// @see https://tetris.fandom.com/wiki/Random_Generator
+function generateSequence() {
+  const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+
+  while (sequence.length) {
+    const rand = getRandomInt(0, sequence.length - 1);
+    const name = sequence.splice(rand, 1)[0];
+    tetrominoSequence.push(name);
+  }
+}
+
+// get the next tetromino in the sequence
+function getNextTetromino() {
+  if (tetrominoSequence.length === 0) {
+    generateSequence();
+  }
+
+  const name = tetrominoSequence.pop();
+  const matrix = tetrominos[name];
+
+  // I and O start centered, all others start in left-middle
+  const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
+
+  // I starts on row 21 (-1), all others start on row 22 (-2)
+  const row = name === 'I' ? -1 : -2;
+
+  return {
+    name: name,      // name of the piece (L, O, etc.)
+    matrix: matrix,  // the current rotation matrix
+    row: row,        // current row (starts offscreen)
+    col: col         // current col
+  };
+}
+
+// rotate an NxN matrix 90deg
+// @see https://codereview.stackexchange.com/a/186834
+function rotate(matrix) {
+  const N = matrix.length - 1;
+  const result = matrix.map((row, i) =>
+    row.map((val, j) => matrix[N - j][i])
+  );
+
+  return result;
+}
+
+// check to see if the new matrix/row/col is valid
+function isValidMove(matrix, cellRow, cellCol) {
+  for (let row = 0; row < matrix.length; row++) {
+    for (let col = 0; col < matrix[row].length; col++) {
+      if (matrix[row][col] && (
+          // outside the game bounds
+          cellCol + col < 0 ||
+          cellCol + col >= playfield[0].length ||
+          cellRow + row >= playfield.length ||
+          // collides with another piece
+          playfield[cellRow + row][cellCol + col])
+        ) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+// place the tetromino on the playfield
+function placeTetromino() {
+  for (let row = 0; row < tetromino.matrix.length; row++) {
+    for (let col = 0; col < tetromino.matrix[row].length; col++) {
+      if (tetromino.matrix[row][col]) {
+        if (tetromino.row + row < 0) {
+          return showGameOver();
+        }
+        playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
+      }
+    }
+  }
+
+  // check for line clears
+  let linesCleared = 0;
+  for (let row = playfield.length - 1; row >= 0; ) {
+    if (playfield[row].every(cell => !!cell)) {
+      // drop every row above this one
+      for (let r = row; r >= 0; r--) {
+        for (let c = 0; c < playfield[r].length; c++) {
+          playfield[r][c] = playfield[r-1][c];
+        }
+      }
+      linesCleared++;
+      row++; // Check the same row again
+    } else {
+      row--;
+    }
+  }
+
+  if (linesCleared > 0) {
+    calculateScore(linesCleared);
+  }
+
+  tetromino = getNextTetromino();
+}
+
+// start the game
+function startGame() {
+  // Reset game state
+  for (let row = -2; row < 20; row++) {
+    for (let col = 0; col < 10; col++) {
+      playfield[row][col] = 0;
+    }
+  }
+  
+  score = 0;
+  level = 1;
+  linesCleared = 0;
+  gameOver = false;
+  gameStarted = true;
+  tetrominoSequence.length = 0;
+  
+  // Hide welcome screen
+  document.getElementById('welcomeScreen').style.display = 'none';
+  
+  // Start new game
+  tetromino = getNextTetromino();
+  rAF = requestAnimationFrame(loop);
+  updateScore();
+}
+
+// restart the game
+function restartGame() {
+  // Reset game state
+  for (let row = -2; row < 20; row++) {
+    for (let col = 0; col < 10; col++) {
+      playfield[row][col] = 0;
+    }
+  }
+  
+  score = 0;
+  level = 1;
+  linesCleared = 0;
+  gameOver = false;
+  gameStarted = true;
+  tetrominoSequence.length = 0;
+  
+  // Hide game over screen
+  document.getElementById('gameOver').style.display = 'none';
+  
+  // Start new game
+  tetromino = getNextTetromino();
+  rAF = requestAnimationFrame(loop);
+  updateScore();
+}
+
+// Update score display
+function updateScore() {
+  document.getElementById('score').textContent = score;
+  document.getElementById('level').textContent = level;
+}
+
+// Calculate score based on lines cleared
+function calculateScore(lines) {
+  const points = [0, 100, 300, 500, 800]; // Points for 0, 1, 2, 3, 4 lines
+  score += points[lines];
+  linesCleared += lines;
+  
+  // Level up every 10 lines
+  level = Math.floor(linesCleared / 10) + 1;
+  
+  updateScore();
+}
+
+// show the game over screen
+function showGameOver() {
+  cancelAnimationFrame(rAF);
+  gameOver = true;
+
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('gameOver').style.display = 'block';
+}
+
+const canvas = document.getElementById('game');
+const context = canvas.getContext('2d');
+const grid = 32;
+const tetrominoSequence = [];
+
+// keep track of what is in every cell of the game using a 2d array
+// tetris playfield is 10x20, with a few rows offscreen
+const playfield = [];
+
+// populate the empty state
+for (let row = -2; row < 20; row++) {
+  playfield[row] = [];
+
+  for (let col = 0; col < 10; col++) {
+    playfield[row][col] = 0;
+  }
+}
+
+// how to draw each tetromino
+// @see https://tetris.fandom.com/wiki/SRS
+const tetrominos = {
+  'I': [
+    [0,0,0,0],
+    [1,1,1,1],
+    [0,0,0,0],
+    [0,0,0,0]
+  ],
+  'J': [
+    [1,0,0],
+    [1,1,1],
+    [0,0,0],
+  ],
+  'L': [
+    [0,0,1],
+    [1,1,1],
+    [0,0,0],
+  ],
+  'O': [
+    [1,1],
+    [1,1],
+  ],
+  'S': [
+    [0,1,1],
+    [1,1,0],
+    [0,0,0],
+  ],
+  'Z': [
+    [1,1,0],
+    [0,1,1],
+    [0,0,0],
+  ],
+  'T': [
+    [0,1,0],
+    [1,1,1],
+    [0,0,0],
+  ]
+};
+
+// color of each tetromino
+const colors = {
+  'I': 'cyan',
+  'O': 'yellow',
+  'T': 'purple',
+  'S': 'green',
+  'Z': 'red',
+  'J': 'blue',
+  'L': 'orange'
+};
+
+// game loop
+function loop() {
+  if (!gameStarted) return;
+  
+  rAF = requestAnimationFrame(loop);
+  context.clearRect(0,0,canvas.width,canvas.height);
+
+  // draw the playfield
+  for (let row = 0; row < 20; row++) {
+    for (let col = 0; col < 10; col++) {
+      if (playfield[row][col]) {
+        const name = playfield[row][col];
+        context.fillStyle = colors[name];
+        context.fillRect(col * grid, row * grid, grid-1, grid-1);
+      }
+    }
+  }
+
+  // draw the active tetromino
+  if (tetromino) {
+    // tetromino falls faster as level increases
+    const dropInterval = Math.max(1, 35 - (level - 1) * 2);
+    
+    if (++count > dropInterval) {
+      tetromino.row++;
+      count = 0;
+
+      if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
+        tetromino.row--;
+        placeTetromino();
+      }
+    }
+
+    context.fillStyle = colors[tetromino.name];
+
+    for (let row = 0; row < tetromino.matrix.length; row++) {
+      for (let col = 0; col < tetromino.matrix[row].length; col++) {
+        if (tetromino.matrix[row][col]) {
+          context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
+        }
+      }
+    }
+  }
+}
+
+// listen to keyboard events to move the active tetromino
+document.addEventListener('keydown', function(e) {
+  if (gameOver || !gameStarted) return;
+
+  // left and right arrow keys (move)
+  if (e.which === 37 || e.which === 39) {
+    const col = e.which === 37
+      ? tetromino.col - 1
+      : tetromino.col + 1;
+
+    if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+      tetromino.col = col;
+    }
+  }
+
+  // up arrow key (rotate)
+  if (e.which === 38) {
+    const matrix = rotate(tetromino.matrix);
+    if (isValidMove(matrix, tetromino.row, tetromino.col)) {
+      tetromino.matrix = matrix;
+    }
+  }
+
+  // down arrow key (drop)
+  if(e.which === 40) {
+    const row = tetromino.row + 1;
+
+    if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
+      tetromino.row = row - 1;
+      placeTetromino();
+      return;
+    }
+
+    tetromino.row = row;
+  }
+
+  // space key (hard drop)
+  if(e.which === 32) {
+    while(isValidMove(tetromino.matrix, tetromino.row + 1, tetromino.col)) {
+      tetromino.row++;
+    }
+    placeTetromino();
+  }
+});
+
+// Initialize game variables
+let count = 0;
+let tetromino = getNextTetromino();
+let rAF = null;
+let gameOver = false;
+let score = 0;
+let level = 1;
+let linesCleared = 0;
+let gameStarted = false;
+
+// Initialize the game
+updateScore();
+
+window.addEventListener('scroll', function() {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+</script>
+</body>
+</html>
