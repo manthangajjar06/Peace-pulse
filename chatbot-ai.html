@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeacePulse AI Therapist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            min-font-size: 14px;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --light-bg: #f4f4f9;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --min-font-size: 14px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-width: 320px;
+            max-width: 100vw;
+            font-size: var(--min-font-size);
+            -webkit-text-size-adjust: none;
+            touch-action: manipulation;
+            cursor: default;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 10px;
+            left: 5%;
+            right: 5%;
+            background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            padding: 15px 25px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.50);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            height: 100%;
+        }
+
+        .nav-links a {
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            color: var(--white);
+            font-weight: 500;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--text-color);
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-links .signupbtn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .nav-links .signupbtn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links .signupbtn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            margin: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.scrolled .profile-icon {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            min-width: 280px;
+            display: none;
+            z-index: 1000;
+            padding: 0;
+            transform-origin: top right;
+            animation: dropdownFade 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-info {
+            padding: 20px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header h3 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .profile-details {
+            margin: 20px 0;
+        }
+
+        .profile-field {
+            margin-bottom: 15px;
+        }
+
+        .profile-field label {
+            display: block;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .profile-value {
+            font-size: 1em;
+            color: var(--text-color);
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-actions {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes dropdownFade {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Chat Container Styles */
+        .chat-container {
+            max-width: 1200px;
+            margin: 100px auto 20px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            height: calc(100vh - 140px);
+            align-items: stretch;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .user-profile {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .user-profile h3 {
+            font-size: 1.4em;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .user-profile p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .quick-actions {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+
+        .action-button i {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-button:hover i {
+            color: white;
+        }
+
+        .main-chat {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px 20px 0 0;
+            flex-shrink: 0;
+        }
+
+        .chat-header .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+            font-size: 1.5em;
+        }
+
+        .chat-header h3 {
+            font-size: 1.4em;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .chat-header p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            scroll-behavior: smooth;
+            height: calc(100% - 140px);
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            line-height: 1.5;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .chat-input {
+            padding: 25px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0 0 20px 20px;
+            flex-shrink: 0;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px 25px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+        }
+
+        .chat-input button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+            font-size: 1.2em;
+        }
+
+        .chat-input button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .suggestion-chip {
+            background: rgba(37, 117, 252, 0.1);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 117, 252, 0.2);
+        }
+
+        .suggestion-chip:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+        }
+
+        /* Add Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 80px 5% 50px;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            gap: 40px;
+        }
+
+        .footer-section {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            color: #2575fc;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 15px;
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-section ul li a:hover {
+            color: #2575fc;
+            transform: translateX(5px);
+        }
+
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1.2em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: #2575fc;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom p {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="homepage.html" class="logo" style="color: white;">PeacePulse</a>
+        <div class="nav-links">
+            <a href="homepage.html" style="color: white;">Home</a>
+            <a href="MISSIONPAGE.HTML" style="color: white;">Our Mission</a>
+            <a href="ftrpg.html" style="color: white;">Features</a>
+            <div class="auth-buttons">
+                <button class="sign-in-btn" id="signInBtn">Sign In</button>
+                <div class="profile-icon" id="profileIcon" style="display: none;">
+                    <i class="fas fa-user"></i>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <p class="name" id="userName">Loading...</p>
+                            <p class="email" id="userEmail">Loading...</p>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="profile-action" onclick="window.location.href='profile.html'">
+                                <i class="fas fa-user-circle"></i> View Profile
+                            </button>
+                            <button class="profile-action" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="chat-container">
+        <div class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Welcome, User</h3>
+                <p class="text-sm text-gray-500">Your mental health journey starts here</p>
+            </div>
+            <div class="quick-actions">
+                <button class="action-button">
+                    <i class="fas fa-gamepad"></i>
+                    Play Games
+                </button>
+                <button class="action-button">
+                    <i class="fas fa-book"></i>
+                    Read Books
+                </button>
+                <button class="action-button">
+                    <i class="fas fa-pray"></i>
+                    Spiritual Guide
+                </button>
+                <button class="action-button">
+                    <i class="fas fa-user-md"></i>
+                    Talk to Expert
+                </button>
+            </div>
+        </div>
+
+        <div class="main-chat">
+            <div class="chat-header">
+                <div class="avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h3>AI Therapist</h3>
+                    <p class="text-sm text-gray-500">Always here to support you</p>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    Hello! I'm your AI Therapist. I'm here to help you through difficult times. How are you feeling today? You can share anything with me - I'm here to listen and support you.
+                    <div class="message-time">Just now</div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Share your thoughts and feelings..." />
+                <button id="sendButton">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>PeacePulse is dedicated to providing mental health support and resources to help you on your journey to well-being.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="moodtracker.html">Mood Tracker</a></li>
+                    <li><a href="chatbot.html">Chat</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced AI responses with more context and variety
+        const aiResponses = {
+            greetings: [
+                "Namaste! I'm here to support you through your journey. How are you feeling today?",
+                "Hello! I'm glad you've reached out. Would you like to talk about what's on your mind?",
+                "Welcome to PeacePulse! I'm your AI companion, here to listen and support you. How can I help you today?",
+                "Hi there! It's good to see you. I'm here to help you navigate through your feelings. What would you like to discuss?",
+                "Namaskar! I'm here to provide a safe space for you to express yourself. How are you feeling?"
+            ],
+            depression: [
+                "I understand that you're going through a difficult time. Depression can feel overwhelming, but remember that you're not alone. Would you like to talk about what's making you feel this way?",
+                "It takes great courage to share these feelings. I'm here to listen without judgment. Would you like to explore what's contributing to these feelings?",
+                "Your feelings are valid, and it's okay to not be okay. Would you like to try some simple breathing exercises or talk about what's troubling you?",
+                "I understand how challenging depression can be. Let's work together to find ways to manage these feelings. Would you like to try some mindfulness exercises or talk about what's on your mind?",
+                "Remember, every small step forward is progress. Would you like to try some gentle activities that might help lift your mood?",
+                "It's okay to feel this way. Would you like to try some grounding techniques or talk about what's making you feel down?"
+            ],
+            anxiety: [
+                "Anxiety can be really difficult to manage. Let's try a simple breathing exercise together - breathe in for 4 counts, hold for 4, and exhale for 4. Would you like to try this?",
+                "I understand how overwhelming anxiety can feel. Would you like to try the 5-4-3-2-1 grounding technique? It can help bring you back to the present moment.",
+                "Remember, anxiety is temporary, and you have the strength to get through this. Would you like to try some calming exercises or talk about what's making you anxious?",
+                "Let's work on managing your anxiety together. Would you like to try some gentle stretching or talk about what's triggering these feelings?",
+                "Anxiety can feel like a storm, but remember you are the sky. Would you like to try some visualization exercises or talk about your concerns?",
+                "I'm here to help you find calm. Would you like to try some quick relaxation techniques or discuss what's making you feel anxious?"
+            ],
+            sleep: [
+                "Sleep difficulties can make everything feel harder. Let me suggest some gentle relaxation techniques that might help you rest better.",
+                "I understand how frustrating sleep problems can be. Would you like to try some sleep hygiene techniques or talk about what's keeping you awake?",
+                "Getting good sleep is important for mental health. Would you like to explore some strategies to improve your sleep or discuss what's affecting your rest?",
+                "Let's work on improving your sleep quality. Would you like to try some bedtime relaxation exercises or talk about your sleep patterns?",
+                "A good night's sleep can make a big difference. Would you like to try some gentle yoga poses for better sleep or discuss your sleep routine?",
+                "Sleep is essential for well-being. Would you like to try some calming bedtime rituals or talk about what's affecting your sleep?"
+            ],
+            positive: [
+                "I'm so glad you're feeling better! That's wonderful progress. Would you like to explore some activities to maintain this positive momentum?",
+                "That's great to hear! Would you like to try some mindfulness exercises or activities from PeacePulse to help maintain this positive feeling?",
+                "Your progress is inspiring! Would you like to explore some resources to help you continue on this positive path?",
+                "It's wonderful to see you feeling better! Would you like to try some gratitude exercises or activities to maintain this positive state?",
+                "That's fantastic! Would you like to try some creative activities or explore ways to build on this positive energy?",
+                "I'm happy to hear you're feeling better! Would you like to try some uplifting activities or discuss what's helping you feel good?"
+            ],
+            help: [
+                "It's brave of you to seek help. I can connect you with professional resources through PeacePulse. Would you like information about our mental health professionals?",
+                "I'm here to support you in finding the right help. Would you like to learn about our counseling services or support groups?",
+                "There's strength in seeking help. Would you like to explore our professional resources or support options?",
+                "I'm here to help you find the right support. Would you like to learn about our therapy options or support groups?",
+                "Taking the first step to seek help is courageous. Would you like to explore our mental health resources or talk about what kind of support you're looking for?",
+                "You don't have to face this alone. Would you like to learn about our professional services or discuss what kind of help would be most beneficial?"
+            ],
+            activities: [
+                "Engaging in activities can be helpful for managing mood. PeacePulse offers various therapeutic games and activities. Would you like to try some?",
+                "Activities can be a great way to improve mood. Would you like to explore some games or other activities from PeacePulse?",
+                "Let's find some activities that you might enjoy. Would you like to try some therapeutic games or other engaging options?",
+                "I can suggest some activities that might help improve your mood. Would you like to try some mindfulness exercises or therapeutic games?",
+                "Finding activities you enjoy can be healing. Would you like to explore some creative activities or therapeutic games?",
+                "Engaging in positive activities can help boost your mood. Would you like to try some interactive exercises or explore our activity library?"
+            ],
+            books: [
+                "Reading can be very therapeutic. PeacePulse has a collection of helpful books, including spiritual and self-help resources. Would you like some recommendations?",
+                "Books can be a great source of comfort and guidance. Would you like to explore our collection of therapeutic and spiritual books?",
+                "Reading can help with mental well-being. Would you like some book recommendations from our curated collection?",
+                "I can suggest some books that might help you on your journey. Would you like recommendations for self-help or spiritual reading?",
+                "Books can be wonderful companions. Would you like to explore our collection of inspiring stories or self-help resources?",
+                "Reading can provide comfort and perspective. Would you like recommendations for books that might resonate with your current situation?"
+            ],
+            spiritual: [
+                "Spiritual practices can provide comfort and strength. PeacePulse offers various spiritual resources and guided meditations. Would you like to explore them?",
+                "Spiritual guidance can be very healing. Would you like to try some meditation exercises or explore spiritual readings?",
+                "Spiritual practices can help with inner peace. Would you like to try some guided meditations or explore spiritual resources?",
+                "Let's explore some spiritual practices that might help you find peace. Would you like to try some meditation or explore spiritual readings?",
+                "Spiritual practices can bring comfort during difficult times. Would you like to try some mindfulness exercises or explore spiritual resources?",
+                "Finding spiritual connection can be healing. Would you like to try some guided meditations or explore our spiritual content?"
+            ],
+            emergency: [
+                "I'm very concerned about your safety. Please know that you are not alone, and there are people who care deeply about you. I strongly encourage you to reach out to a mental health professional or call emergency services at 100/102. Your life has value, and there is help available.",
+                "Your safety is my top priority. Please contact emergency services at 100/102 or a mental health professional immediately. You don't have to face this alone.",
+                "I take your safety seriously. Please reach out to emergency services at 100/102 or contact a mental health professional right away.",
+                "Your safety is extremely important. Please call 100/102 or contact a mental health professional immediately. There are people who care about you and want to help.",
+                "I'm very concerned about your well-being. Please contact emergency services at 100/102 or reach out to a mental health professional right away. You are not alone.",
+                "Your safety is my utmost concern. Please call 100/102 or contact a mental health professional immediately. There is help available, and people who care about you."
+            ]
+        };
+
+        // Context tracking
+        let conversationContext = {
+            lastTopic: null,
+            mood: null,
+            needsHelp: false
+        };
+
+        // Function to analyze message sentiment and context
+        function analyzeMessage(message) {
+            const normalizedMessage = message.toLowerCase();
+            
+            // Check for emergency keywords first
+            if (normalizedMessage.includes("suicide") || 
+                normalizedMessage.includes("kill myself") || 
+                normalizedMessage.includes("end it all") || 
+                normalizedMessage.includes("don't want to live")) {
+                return {
+                    type: "emergency",
+                    response: aiResponses.emergency[Math.floor(Math.random() * aiResponses.emergency.length)]
+                };
+            }
+
+            // Analyze sentiment and context
+            if (normalizedMessage.includes("sad") || normalizedMessage.includes("depressed") || 
+                normalizedMessage.includes("down") || normalizedMessage.includes("hopeless")) {
+                conversationContext.mood = "negative";
+                return {
+                    type: "depression",
+                    response: aiResponses.depression[Math.floor(Math.random() * aiResponses.depression.length)]
+                };
+            }
+
+            if (normalizedMessage.includes("anxious") || normalizedMessage.includes("worried") || 
+                normalizedMessage.includes("panic") || normalizedMessage.includes("stressed")) {
+                return {
+                    type: "anxiety",
+                    response: aiResponses.anxiety[Math.floor(Math.random() * aiResponses.anxiety.length)]
+                };
+            }
+
+            if (normalizedMessage.includes("sleep") || normalizedMessage.includes("insomnia") || 
+                normalizedMessage.includes("tired") || normalizedMessage.includes("exhausted")) {
+                return {
+                    type: "sleep",
+                    response: aiResponses.sleep[Math.floor(Math.random() * aiResponses.sleep.length)]
+                };
+            }
+
+            if (normalizedMessage.includes("better") || normalizedMessage.includes("improving") || 
+                normalizedMessage.includes("happy") || normalizedMessage.includes("good")) {
+                conversationContext.mood = "positive";
+                return {
+                    type: "positive",
+                    response: aiResponses.positive[Math.floor(Math.random() * aiResponses.positive.length)]
+                };
+            }
+
+            if (normalizedMessage.includes("help") || normalizedMessage.includes("support") || 
+                normalizedMessage.includes("therapy") || normalizedMessage.includes("doctor")) {
+                conversationContext.needsHelp = true;
+                return {
+                    type: "help",
+                    response: aiResponses.help[Math.floor(Math.random() * aiResponses.help.length)]
+                };
+            }
+
+            // Default response based on context
+            if (conversationContext.mood === "negative") {
+                return {
+                    type: "depression",
+                    response: "I'm here to listen and support you. Would you like to talk more about what's troubling you?"
+                };
+            }
+
+            return {
+                type: "general",
+                response: "I'm here to listen and support you. Could you tell me more about what you're experiencing?"
+            };
+        }
+
+        // Function to add message to chat
+        function addMessage(content, isUser) {
+            const chatMessages = document.getElementById("chatMessages");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${isUser ? "user" : "bot"}`;
+            
+            const messageContent = document.createElement("div");
+            messageContent.textContent = content;
+            
+            const timeDiv = document.createElement("div");
+            timeDiv.className = "message-time";
+            timeDiv.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(timeDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to show typing indicator
+        function showTypingIndicator() {
+            const typingIndicator = document.getElementById("typingIndicator");
+            typingIndicator.style.display = "block";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to hide typing indicator
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById("typingIndicator");
+            typingIndicator.style.display = "none";
+        }
+
+        // Event listeners
+        document.getElementById("sendButton").addEventListener("click", handleMessage);
+        document.getElementById("userInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                handleMessage();
+            }
+        });
+
+        function handleMessage() {
+            const userInput = document.getElementById("userInput");
+            const message = userInput.value.trim();
+
+            if (message) {
+                // Add user message
+                addMessage(message, true);
+                userInput.value = "";
+
+                // Show typing indicator
+                showTypingIndicator();
+
+                // Simulate AI thinking
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    
+                    // Get AI response
+                    const analysis = analyzeMessage(message);
+                    addMessage(analysis.response, false);
+
+                    // Add suggestion chips based on context
+                    if (analysis.type !== "emergency") {
+                        addSuggestionChips(analysis.type);
+                    }
+                }, 1500);
+            }
+        }
+
+        // Function to add suggestion chips
+        function addSuggestionChips(context) {
+            const suggestions = {
+                depression: ["Try breathing exercises", "Read a self-help book", "Talk to a counselor"],
+                anxiety: ["Practice meditation", "Try grounding techniques", "Take a walk"],
+                sleep: ["Try sleep meditation", "Read bedtime stories", "Practice sleep hygiene"],
+                positive: ["Play therapeutic games", "Read inspiring books", "Try meditation"],
+                help: ["Connect with a therapist", "Join support groups", "Explore resources"]
+            };
+
+            const chatMessages = document.getElementById("chatMessages");
+            const chipsContainer = document.createElement("div");
+            chipsContainer.className = "suggestion-chips";
+
+            if (suggestions[context]) {
+                suggestions[context].forEach(suggestion => {
+                    const chip = document.createElement("div");
+                    chip.className = "suggestion-chip";
+                    chip.textContent = suggestion;
+                    chip.addEventListener("click", () => {
+                        document.getElementById("userInput").value = suggestion;
+                        handleMessage();
+                    });
+                    chipsContainer.appendChild(chip);
+                });
+            }
+
+            chatMessages.appendChild(chipsContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Add navbar functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            updateNavbarElements(loggedInUser);
+        });
+
+        function updateNavbarElements(loggedInUser) {
+            const signInBtn = document.getElementById("signInBtn");
+            const profileIcon = document.getElementById("profileIcon");
+            const userName = document.getElementById("userName");
+            const userEmail = document.getElementById("userEmail");
+            
+            if (loggedInUser) {
+                try {
+                    const userData = JSON.parse(loggedInUser);
+                    signInBtn.style.display = "none";
+                    profileIcon.style.display = "flex";
+                    userName.textContent = `${userData.firstName} ${userData.lastName}`;
+                    userEmail.textContent = userData.email;
+                } catch (error) {
+                    console.error('Error parsing user data:', error);
+                }
+            } else {
+                signInBtn.style.display = "flex";
+                profileIcon.style.display = "none";
+            }
+        }
+
+        function handleLogout(event) {
+            event.preventDefault();
+            localStorage.removeItem("loggedInUser");
+            updateNavbarElements(null);
+            window.location.reload();
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.querySelector('.profile-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function navigateToSignIn() {
+            window.location.href = "loginpg.html";
+        }
+
+        // Add navbar scroll functionality
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function(event) {
+            const profileIcon = document.getElementById("profileIcon");
+            const dropdown = document.querySelector('.profile-dropdown');
+            
+            if (!profileIcon.contains(event.target) && dropdown.classList.contains("active")) {
+                dropdown.classList.remove("active");
+            }
+        });
+    </script>
+</body>
+</html> 
