@@ -29,7 +29,7 @@ https://github.com/manthangajjar06/Peace-pulse/blob/main/project_video.mp4
 | Snake Game | `/snakegame` | Classic snake game |
 | Tetris Game | `/tetrisgame` | Classic tetris game |
 | Tic Tac Toe | `/tictactoe` | Classic tic-tac-toe game |
-| Fantasy RPG | `/ftrpg` | RPG-style text adventure game |
+| Features Page | `/ftrpg` | RPG-style text adventure game |
 | Mood Tracker | `/moodtracker` | Chart-based mood assessment tool |
 | AI Chatbot | `/chatbot` | AI therapist chatbot |
 | Mission | `/mission` | About PeacePulse's mission |
@@ -77,8 +77,8 @@ https://github.com/manthangajjar06/Peace-pulse/blob/main/project_video.mp4
 ### ❌⭕ Tic Tac Toe
 ![Tic Tac Toe](screenshots/tictactoe.png)
 
-### ⚔️ Fantasy RPG
-![Fantasy RPG](screenshots/ftrpg.png)
+### ⚔️ Features Page
+![Features Page](screenshots/ftrpg.png)
 
 ### 📊 Mood Tracker
 ![Mood Tracker](screenshots/moodtracker.png)
@@ -117,7 +117,7 @@ peace_pulse/
     ├── snakegame.html          # Snake game
     ├── tetrisgame.html         # Tetris game
     ├── tictactoe.html          # Tic Tac Toe game
-    ├── ftrpg.html              # Fantasy RPG text game
+    ├── ftrpg.html              # Features Page text game
     ├── moodtracker.html        # Mood tracking with Chart.js
     ├── chatbot.html            # AI therapist chatbot
     ├── MISSIONPAGE.HTML        # Mission/about page
@@ -546,7 +546,7 @@ Copy the output and paste it as your `JWT_SECRET` value.
 - **📚 Book Library** — Self-help and spiritual books with embedded PDFs
 - **🤖 AI Chatbot** — In-browser AI therapist for mental wellness support
 - **📊 Mood Tracker** — Visual mood assessment with Chart.js graphs
-- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Fantasy RPG for relaxation
+- **🎮 Games** — Snake, Tetris, Tic Tac Toe, and a Features Page for relaxation
 - **🩺 Doctor Directory** — Find mental health professionals
 - **🎬 Motivational Videos** — Curated YouTube content
 - **💬 Quotes** — Daily inspirational quotes
