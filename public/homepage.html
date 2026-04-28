@@ -1,0 +1,1349 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeacePulse - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <!-- Include the reusable AuthComponent CSS -->
+  <link rel="stylesheet" href="css/authComponent.css" />
+    <style>
+            /* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    min-font-size: 14px;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --primary-color: #2575fc;
+    --secondary-color: #6a11cb;
+    --text-color: #333;
+    --light-bg: #f4f4f9;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --min-font-size: 14px;
+}
+
+body {
+    line-height: 1.6;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    overflow-x: hidden;
+    min-width: 320px;
+    max-width: 100vw;
+    font-size: var(--min-font-size);
+    -webkit-text-size-adjust: none;
+    touch-action: manipulation;
+    cursor: default;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.navbar {
+    position: fixed;
+    top: 10px;
+    left: 5%;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    padding: 15px 25px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.50);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar .logo {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    height: 100%;
+}
+
+.nav-links a {
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    color: var(--white);
+    font-weight: 500;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+
+.navbar.scrolled .logo {
+    color: var(--primary-color);
+    text-shadow: none;
+    text-decoration: none;
+}
+
+.navbar.scrolled .nav-links a {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+.navbar.scrolled .nav-links .signupbtn {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    color: white;
+}
+
+.nav-links .signupbtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links .signupbtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    position: relative;
+    margin: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .profile-icon {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.signupbtn {
+    background-color: #0288d1; /* Matching blue for buttons */
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.profile-icon {
+    width: clamp(35px, 5vw, 45px);
+    height: clamp(35px, 5vw, 45px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.profile-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    display: none;
+    z-index: 1000;
+    padding: 0;
+    transform-origin: top right;
+    animation: dropdownFade 0.3s ease;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.profile-info {
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-header h3 {
+    color: #2575fc;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.profile-details {
+    margin: 20px 0;
+}
+
+.profile-field {
+    margin-bottom: 15px;
+}
+
+.profile-field label {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.profile-value {
+    font-size: 1em;
+    color: #333;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.profile-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.loginbtn:hover {
+    background-color: #01579b; /* Darker blue on hover */
+}
+
+.signupbtn:hover {
+    background-color: #01579b; /* Darker blue on hover */
+}
+
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--primary-color), var(--white));
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 5% 40px;
+    margin-top: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transform: none !important;
+    transition: none !important;
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    animation: none !important;
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    animation: none !important;
+}
+
+.hero button {
+    background-color: white;
+    color: #2575fc;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 30px;
+    transition: none !important;
+    animation: none !important;
+}
+
+.hero button:hover {
+    background-color: #2575fc;
+    color: white;
+    transform: none !important;
+}
+
+.hero-image {
+    width: 45%;
+    max-width: calc(1920px * 0.45); /* Ensure it scales for 1920px width */
+    height: auto;
+    max-height: calc(1080px * 0.45); /* Ensure it scales for 1080px height */
+    animation: floatAnimation 3s ease-in-out infinite;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures it fits within the container */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* About Section */
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(60px, 8vw, 100px) 5%;
+    background: var(--white);
+    gap: clamp(30px, 5vw, 50px);
+}
+
+.about button {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: clamp(12px, 2vw, 15px) clamp(30px, 4vw, 40px);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.about-image {
+    width: 45%;
+    min-width: 300px;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transition: none !important;
+}
+
+.about-image img:hover {
+    transform: none;
+}
+
+.about-content {
+    width: 50%;
+}
+
+.about h2 {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.about h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+}
+
+.about p {
+    font-size: clamp(var(--min-font-size), 1.5vw, 1.2rem);
+    margin-bottom: 20px;
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+/* About PeacePulse Section */
+.about-peacepulse {
+    padding: 100px 5%;
+    background-color: #f9f9f9;
+}
+
+.about-peacepulse h2 {
+    font-size: 2.5em;
+    color: #2575fc;
+    margin-bottom: 20px;
+}
+
+.about-peacepulse p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.features {
+    padding: clamp(60px, 8vw, 100px) 5%;
+    background: var(--light-bg);
+}
+
+.features h2 {
+    text-align: center;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    margin-bottom: clamp(30px, 5vw, 50px);
+    color: var(--primary-color);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(20px, 3vw, 30px);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: clamp(20px, 3vw, 30px);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card img {
+    width: clamp(60px, 8vw, 80px);
+    height: clamp(60px, 8vw, 80px);
+    margin-bottom: clamp(15px, 2vw, 20px);
+    object-fit: contain;
+}
+
+.feature-card h3 {
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    margin-bottom: clamp(10px, 1.5vw, 15px);
+    color: var(--primary-color);
+}
+
+.feature-card p {
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    color: var(--text-color);
+}
+
+.explore-more {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.explore-more:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.explore-more img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.explore-more h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    color: #2575fc; /* Different color for Explore More */
+}
+
+.explore-more p {
+    font-size: 1em;
+    color: #555;
+}
+
+
+/* Quotes Section */
+.quotes {
+    background: linear-gradient(180deg, #ffffff, #2575fc);
+    color: rgb(0, 0, 0);
+    padding: 100px 5%;
+    text-align: center;
+}
+
+.quotes h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+}
+
+.quote-slider {
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+.quote {
+    padding: 20px;
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+/* Contact Section */
+.contact {
+    padding: 100px 5%;
+    background: linear-gradient(180deg, var(--white), var(--light-bg));
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(37, 117, 252, 0.05)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.contact h2 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.contact p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    opacity: 0.8;
+}
+
+.contact form {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.contact input,
+.contact textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid rgba(37, 117, 252, 0.1);
+    border-radius: 12px;
+    font-size: 1em;
+    background: var(--white);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 117, 252, 0.1);
+    transform: translateY(-2px);
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+    color: #999;
+}
+
+.contact textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact button {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 117, 252, 0.3);
+}
+
+.contact button:active {
+    transform: translateY(-1px);
+}
+
+.contact button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.contact button:hover::before {
+    left: 100%;
+}
+
+.contact .social-links {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.contact .social-links a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.contact .social-links a:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+}
+
+/* Why Now&Me Section */
+.why-nowme {
+    padding: 100px;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    color: #333;
+}
+
+.why-nowme h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.why-nowme h2 span {
+    color: #ff5722; /* Highlight color */
+}
+
+.why-nowme .why-text {
+    font-size: 1.2em;
+    margin-bottom: 50px;
+    color: #666;
+}
+
+.why-nowme .why-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.why-nowme .feature {
+    width: 150px;
+    text-align: center;
+}
+
+.why-nowme .feature img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.why-nowme .feature h3 {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 50px 5%;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.footer-section {
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #2575fc;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+    color: #ccc;
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: none !important;
+}
+
+.footer-section ul li a:hover {
+    color: #2575fc;
+}
+
+.footer-section input[type="email"] {
+    padding: 10px;
+    width: 80%;
+    border: none;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.footer-section input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-section button {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-section button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom .social-links {
+    margin-bottom: 10px;
+}
+
+.footer-bottom .social-links a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.footer-bottom .social-links a:hover {
+    color: #2575fc;
+}
+
+@keyframes floatAnimation {
+    0%, 50%, 100% {
+        transform: none;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 5%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding: 100px 5% 40px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-content img {
+        max-width: 100%;
+        height: auto;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image,
+    .about-content {
+        width: 100%;
+    }
+
+    .about-image {
+        margin-bottom: 30px;
+    }
+
+    .about h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero-content {
+        max-width: 1400px;
+    }
+
+    .hero-content img {
+        max-width: 800px;
+    }
+}
+
+/* Remove zoom-related styles */
+.hero-content img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Remove media queries that affect zoom */
+@media screen and (min-resolution: 2dppx) {
+    .hero-content img {
+        image-rendering: auto;
+    }
+}
+
+/* Remove all transform and transition properties */
+.feature-card,
+.explore-more,
+.about-image img,
+.nav-links a,
+.nav-links .signupbtn,
+.hero button,
+.about button,
+.contact button,
+.footer-section button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .profile-dropdown,
+    button {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .hero {
+        background: none;
+    }
+
+    .hero::before {
+        display: none;
+    }
+}
+
+/* Add these styles in the <style> section */
+.profile-info {
+    padding: 15px;
+    min-width: 250px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-header h3 {
+    color: #2575fc;
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.profile-details {
+    margin: 15px 0;
+}
+
+.profile-field {
+    margin-bottom: 12px;
+}
+
+.profile-field label {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.profile-value {
+    font-size: 1em;
+    color: #333;
+    padding: 8px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    color: #2575fc;
+    background: rgba(37, 117, 252, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.profile-btn:hover {
+    background: rgba(37, 117, 252, 0.2);
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+.profile-dropdown {
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="homepage.html" class="logo" style="color: white;">PeacePulse</a>
+        <div class="nav-links">
+          <a href="homepage.html" style="color: white;">Home</a>
+          <a href="MISSIONPAGE.HTML" style="color: white;">Our Mission</a>
+          <a href="ftrpg.html" style="color: white;">Features</a>
+          <!-- Use the AuthComponent container here -->
+          <div class="auth-buttons" id="authComponentContainer"></div>
+        </div>
+      </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="img2.png" alt="Mental Health Illustration" />
+        </div>
+    </section>        
+
+    <!-- About PeacePulse Section -->
+    <section class="about-peacepulse" id="about-peacepulse">
+        <div class="about-peacepulse-content">
+            <h2>About PeacePulse</h2>
+            <p>PeacePulse is dedicated to providing support for individuals on their mental health journey. We understand that mental wellness is crucial for a happy, fulfilling life, and we're here to offer a safe, non-judgmental, and accessible space for everyone. Whether you're looking for someone to talk to, need resources, or want to engage in activities that promote mental well-being, PeacePulse is designed with you in mind.</p>
+            <p>Our mission is to empower individuals to take control of their mental health and achieve a balanced, peaceful life through personalized tools, resources, and community support.</p>
+        </div>
+    </section>
+
+    <!-- About Section (After the above section) -->
+    <section class="about" id="about">
+        <div class="about-image">
+            <img src="1.png" alt="AI Assistant">
+        </div>
+        <div class="about-content">
+            <h2>Meet Aura</h2>
+            <p>Your trusted mental health companion. Aura is here to provide a safe, supportive, and non-judgmental space for you to share your thoughts and feelings. Whether you're seeking mental health support, mood tracking, or just someone to talk to, Aura is ready to help you on your journey to a healthier and happier mind.</p>
+            <button onclick="navigateTo('chatbot')">Start Conversation</button>
+        </div>
+    </section>  
+    <section class="why-nowme">
+        <h2>Why <span>Aura?</span></h2>
+        <p class="why-text">Because your mental health matters, anytime, anywhere.</p>
+        <div class="why-features">
+            <div class="feature">
+                <img src="ava.png" alt="Instant Availability">
+                <h3>Instant Availability</h3>
+            </div>
+            <div class="feature">
+                <img src="fr.png" alt="Available 24/7">
+                <h3>Your Friendly Companion</h3>
+            </div>
+            <div class="feature">
+                <img src="cs.png" alt="Multiple Languages">
+                <h3>Confidential and Secure</h3>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Our Features</h2>
+        <div class="features-grid">
+            <div class="feature-card" onclick="navigateToPage('chatbot-ai.html')">
+                <img src="chatbot1.gif" alt="Chatbot">
+                <h3>AI Chatbot</h3>
+                <p>Support for your mental well-being</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('gamesec.html')">
+                <img src="games1.gif" alt="Games">
+                <h3>Relaxation Games</h3>
+                <p>Fun activities to help you unwind</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('communitypage.html')">
+                <img src="Community1.gif" alt="Community">
+                <h3>Community</h3>
+                <p>Connect with others on similar journeys</p>
+            </div>
+        </div>
+        <div class="explore-more" onclick="navigateToPage('ftrpg.html')">
+            <img src="more.gif" alt="morefeats">
+            <h3>Explore More</h3>
+            <p>Give your Mind a new way of thinking via PeacePulse features</p>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section class="quotes">
+        <h2>Inspirational quotes</h2>
+        <div class="quote-slider">
+            <div class="quote">"The best way to predict the future is to create it."</div>
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Get in Touch</h2>
+        <p>Have questions or suggestions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        <form>
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email address">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Write your message here..."></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about-us">
+                <h3>About Us</h3>
+                <p>PeacePulse is your trusted companion for mental wellness and personal growth. We aim to provide a supportive space to help you navigate your mental health journey.</p>
+            </div>
+            <div class="footer-section quick-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact-info">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>Email: <a href="mailto:info@peacepulse.com">info@peacepulse.com</a></li>
+                    <li>Phone: +91 98252 31346</li>
+                </ul>
+            </div>
+            <div class="footer-section newsletter">
+                <h3>Stay Updated</h3>
+                <p>Sign up for our newsletter to get the latest updates and tips for mental wellness.</p>
+                <form action="#" method="POST">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank" title="Facebook">Facebook</a>
+                <a href="https://twitter.com" target="_blank" title="Twitter">Twitter</a>
+                <a href="https://instagram.com" target="_blank" title="Instagram">Instagram</a>
+            </div>
+            <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/authComponent.js"></script>
+     <!-- Load the reusable AuthComponent script and initialize it -->
+  <script src="js/authComponent.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      const heroSection = document.querySelector(".hero");
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        if (window.scrollY > heroBottom - 100) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      }
+    });
+
+    // Navigation helper functions
+    function navigateToPage(url) {
+      window.location.href = url;
+    }
+    function navigateTo(section) {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // Initialize the AuthComponent to manage auth UI
+    document.addEventListener("DOMContentLoaded", function () {
+      new AuthComponent("authComponentContainer");
+    });
+  </script>         
+</body>
+</html>

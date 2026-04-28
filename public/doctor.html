@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeacePulse - Contact Our Doctors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/authComponent.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            min-font-size: 14px;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --light-bg: #f4f4f9;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --min-font-size: 14px;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-width: 320px;
+            max-width: 100vw;
+            font-size: var(--min-font-size);
+            -webkit-text-size-adjust: none;
+            touch-action: manipulation;
+            cursor: default;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .navbar {
+    position: fixed;
+    top: 10px;
+    left: 5%;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    padding: 15px 25px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.50);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar .logo {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    height: 100%;
+}
+
+.nav-links a {
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    color: var(--white);
+    font-weight: 500;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+
+.navbar.scrolled .logo {
+    color: var(--primary-color);
+    text-shadow: none;
+    text-decoration: none;
+}
+
+.navbar.scrolled .nav-links a {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+.navbar.scrolled .nav-links .signupbtn {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    color: white;
+}
+
+.nav-links .signupbtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links .signupbtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    position: relative;
+    margin: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .profile-icon {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.signupbtn {
+    background-color: #0288d1; /* Matching blue for buttons */
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.profile-icon {
+    width: clamp(35px, 5vw, 45px);
+    height: clamp(35px, 5vw, 45px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.profile-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    display: none;
+    z-index: 1000;
+    padding: 0;
+    transform-origin: top right;
+    animation: dropdownFade 0.3s ease;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.profile-info {
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-header h3 {
+    color: #2575fc;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.profile-details {
+    margin: 20px 0;
+}
+
+.profile-field {
+    margin-bottom: 15px;
+}
+
+.profile-field label {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.profile-value {
+    font-size: 1em;
+    color: #333;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.profile-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.loginbtn:hover {
+    background-color: #01579b; /* Darker blue on hover */
+}
+
+.signupbtn:hover {
+    background-color: #01579b; /* Darker blue on hover */
+}
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 5%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 0;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            background: linear-gradient(180deg, var(--primary-color), var(--white));
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 5% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            width: 50%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+            color: var(--white);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s ease-in-out;
+            color: var(--white);
+        }
+
+        .hero button {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            transition: var(--transition);
+            animation: fadeIn 3s ease-in-out;
+            font-weight: 500;
+        }
+
+        .hero button:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .hero-image {
+            width: 45%;
+            animation: floatAnimation 3s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Doctor Section */
+        .doctor-section {
+            padding: 100px 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .doctor-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+            z-index: -1;
+        }
+
+        .doctor-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .doctor-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .doctor-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 117, 252, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(37, 117, 252, 0.2);
+        }
+
+        .doctor-card:hover::before {
+            opacity: 1;
+        }
+
+        .doctor-card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.2);
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .doctor-card h3 {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .doctor-card p {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .doctor-card a {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .doctor-card a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2d3436, #1a1a1a);
+            color: var(--white);
+            padding: 80px 5% 40px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 100px 5% 50px;
+            }
+
+            .hero-content {
+                width: 100%;
+                max-width: calc(100% - 40px);
+                margin: 10px auto 0;
+                padding: 0 20px;
+            }
+
+            .hero-image {
+                width: 100%;
+                max-width: 400px;
+                margin: 30px auto 0;
+            }
+
+            .doctor-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .doctor-card {
+                padding: 20px;
+            }
+
+            .doctor-card img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Sign In Button Styling */
+        .nav-links .sign-in-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links .sign-in-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navbar Transition Effect */
+        .navbar,
+        .nav-links a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--text-color);
+            text-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <script>
+      fetch('common-header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+          // Manually initialize AuthComponent since inline scripts in fetched HTML aren't executed
+          if (typeof AuthComponent !== 'undefined') {
+            new AuthComponent('auth-container');
+          } else {
+            var script = document.createElement('script');
+            script.src = 'js/authComponent.js';
+            script.onload = function() {
+              new AuthComponent('auth-container');
+            };
+            document.head.appendChild(script);
+          }
+          // Setup navbar scroll behavior
+          const navbar = document.querySelector('.navbar');
+          if (navbar) {
+            window.addEventListener('scroll', () => {
+              if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+              } else {
+                navbar.classList.remove('scrolled');
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error loading header:', error);
+          alert("Failed to load the header. Please refresh the page.");
+        });
+    </script>    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Meet Our Experts</h1>
+            <p>Our doctors are here to help and guide you through your health journey. Contact them for more information.</p>
+            <button>Get in Touch</button>
+        </div>
+        <div class="hero-image">
+            <img src="doctor.gif" alt="Doctors">
+        </div>
+    </section>
+
+    <section class="doctor-section">
+        <h2>Our Doctors</h2>
+        <div class="doctor-grid">
+            <!-- Sample Doctor 1 -->
+            <div class="doctor-card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/041/408/858/small/ai-generated-a-smiling-doctor-with-glasses-and-a-white-lab-coat-isolated-on-transparent-background-free-png.png" alt="Dr. John Doe">
+                <h3>Dr. John Doe</h3>
+                <p>Mental Health Specialist</p>
+                <a href="mailto:johndoe@example.com">Contact</a>
+            </div>
+            
+            <!-- Sample Doctor 2 -->
+            <div class="doctor-card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/028/287/555/small_2x/an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg" alt="Dr. Jane Smith">
+                <h3>Dr. Jane Smith</h3>
+                <p>Brain Therapy Specialist</p>
+                <a href="mailto:janesmith@example.com">Contact</a>
+            </div>
+            
+            <!-- Sample Doctor 3 -->
+            <div class="doctor-card">
+                <img src="data:image/jpeg;base64,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">
+                <h3>Dr. Mark Taylor</h3>
+                <p>Depression-Anxiety Specialist</p>
+                <a href="mailto:marktaylor@example.com">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Doctors</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Stay Connected</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Healthcare Center. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a> |
+                <a href="#">Twitter</a> |
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

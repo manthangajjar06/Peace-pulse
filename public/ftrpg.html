@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeacePulse - Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/authComponent.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            min-font-size: 14px;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --light-bg: #f4f4f9;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --min-font-size: 14px;
+        }
+
+        body {
+            line-height: 1.6;
+            background: linear-gradient(180deg, var(--primary-color), var(--white));
+            color: var(--text-color);
+            min-height: 100vh;
+            opacity: 0;
+            animation: pageLoad 1s ease-out forwards;
+            padding-top: 100px; /* Increased to accommodate fixed navbar */
+        }
+
+        @keyframes pageLoad {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(170deg, var(--primary-color), transparent);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 5%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            margin: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(37, 117, 252, 0.05), rgba(106, 17, 203, 0.05));
+            pointer-events: none;
+        }
+
+        .features-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+        }
+
+        .features-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            transform-origin: center bottom;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 20px 40px rgba(37, 117, 252, 0.2);
+        }
+
+        .feature-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.1);
+        }
+
+        .feature-card:hover img {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .feature-card:hover h3 {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            color: var(--text-color);
+            opacity: 0.8;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            line-height: 1.6;
+        }
+
+        .feature-card:hover p {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: var(--white);
+            padding: 50px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .features-section {
+                padding: 50px 20px;
+                margin: 10px;
+            }
+
+            .feature-cards {
+                gap: 20px;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+        }
+
+        /* Navbar styles */
+#header .navbar {
+    position: fixed;
+    top: 10px;
+    left: 5%;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    padding: 15px 25px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+#header .navbar.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.50);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Logo */
+#header .navbar .logo {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+/* Nav links */
+#header .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    height: 100%;
+}
+
+#header .nav-links a {
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    color: var(--white);
+    font-weight: 500;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+
+/* When scrolled, change colors */
+#header .navbar.scrolled .logo {
+    color: var(--primary-color);
+    text-shadow: none;
+    text-decoration: none;
+}
+#header .navbar.scrolled .nav-links a {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+/* Sign in button style */
+#header .nav-links .signupbtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+#header .nav-links .signupbtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile icon style */
+#header .profile-icon {
+    width: clamp(35px, 5vw, 45px);
+    height: clamp(35px, 5vw, 45px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#header .navbar.scrolled .profile-icon {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+}
+#header .profile-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Underline effect on nav links */
+#header .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+}
+#header .nav-links a:hover::after {
+    width: 100%;
+}
+#header .nav-links a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Dynamic Header Loader & AuthComponent Initialization -->
+<div id="header"></div>
+<link rel="stylesheet" href="css/authComponent.css">
+<script>
+  // Load the common header (make sure common-header.html contains your navbar and an element with id "auth-container")
+  fetch('common-header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+      // Initialize AuthComponent: it should render the sign in button or profile icon
+      if (typeof AuthComponent !== 'undefined') {
+        new AuthComponent('auth-container');
+      } else {
+        // Dynamically load authComponent.js if not already loaded
+        var script = document.createElement('script');
+        script.src = 'js/authComponent.js';
+        script.onload = function() {
+          new AuthComponent('auth-container');
+        };
+        document.head.appendChild(script);
+      }
+      // Set up navbar scroll effect
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    })
+    .catch(error => console.error('Error loading header:', error));
+
+  // Navigation helper function: use this for card clicks
+  function navigateToPage(url) {
+    window.location.href = url;
+  }
+</script>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to the Features</h1>
+            <p>Explore our comprehensive suite of tools designed to support your mental wellness journey</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <h2>Explore Our Features</h2>
+        <div class="feature-cards">
+            <div class="feature-card" onclick="navigateToPage('moodtracker.html')">
+                <img src="mood.gif" alt="Mood Tracker">
+                <h3>Your Mood Data</h3>
+                <p>Track and understand your emotional patterns</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('chatbot.html')">
+                <img src="chatbot1.gif" alt="Chat Bot">
+                <h3>Chat Bot</h3>
+                <p>Your personal companion for mental wellness</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('religiousbooks.html')">
+                <img src="religion.gif" alt="Religious Ways">
+                <h3>Religious Ways to Calm</h3>
+                <p>Find peace through spiritual practices</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('books.html')">
+                <img src="books.gif" alt="Books">
+                <h3>Books</h3>
+                <p>Recommended reads for personal growth and calm</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('gamesec.html')">
+                <img src="games1.gif" alt="Games">
+                <h3>Games</h3>
+                <p>Interactive activities for stress relief</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('communitypage.html')">
+                <img src="community1.gif" alt="Community">
+                <h3>Community</h3>
+                <p>Connect with others on your mental wellness journey</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('motivideo.html')">
+                <img src="motivation.gif" alt="Motivational Videos">
+                <h3>Motivational Videos</h3>
+                <p>Stay inspired with uplifting content</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('quotes.html')">
+                <img src="quotes.gif" alt="Quotes">
+                <h3>Quotes</h3>
+                <p>Daily doses of wisdom and positivity</p>
+            </div>
+            <div class="feature-card" onclick="navigateToPage('doctor.html')">
+                <img src="doctor.gif" alt="Contact Our Doctors">
+                <h3>Contact Our Doctors</h3>
+                <p>Professional support at your fingertips</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>PeacePulse is your companion for mental wellness and personal growth.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>Email: info@peacepulse.com</li>
+                    <li>Phone: +1 234 567 890</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

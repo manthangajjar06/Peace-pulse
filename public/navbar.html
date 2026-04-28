@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<template id="navbar-template">
+    <style>
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Navbar Container */
+        .navbar {
+            position: fixed;
+            top: 3%;
+            left: 5%;
+            right: 5%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            top: 2%;
+        }
+
+        /* Logo */
+        .navbar .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: clamp(14px, 1.2vw, 1rem);
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sign In Button */
+        .sign-in-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(14px, 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-width: 100px;
+            margin: 0;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            white-space: nowrap;
+            line-height: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sign-in-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .sign-in-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 25px rgba(37, 117, 252, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .sign-in-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Profile Icon */
+        .profile-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1rem;
+            position: relative;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .profile-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                left: 2%;
+                right: 2%;
+                padding: 10px 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .sign-in-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links a:not(:last-child) {
+                display: none;
+            }
+        }
+    </style>
+
+    <nav class="navbar">
+        <a href="homepage.html" class="logo">PeacePulse</a>
+        <div class="nav-links">
+            <a href="homepage.html">Home</a>
+            <a href="MISSIONPAGE.HTML">Our Mission</a>
+            <a href="ftrpg.html">Features</a>
+            <div class="auth-buttons">
+                <button class="sign-in-btn" id="signInBtn">Sign In</button>
+                <div class="profile-icon" id="profileIcon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<script>
+    class NavbarComponent extends HTMLElement {
+        constructor() {
+            super();
+            this.attachShadow({ mode: 'open' });
+        }
+
+        connectedCallback() {
+            const template = document.getElementById('navbar-template');
+            this.shadowRoot.appendChild(template.content.cloneNode(true));
+            this.initializeNavbar();
+        }
+
+        initializeNavbar() {
+            // Scroll behavior
+            window.addEventListener('scroll', () => {
+                const navbar = this.shadowRoot.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Auth state management
+            this.updateAuthUI();
+
+            // Event listeners
+            const signInBtn = this.shadowRoot.getElementById('signInBtn');
+            const profileIcon = this.shadowRoot.getElementById('profileIcon');
+
+            signInBtn?.addEventListener('click', () => {
+                window.location.href = 'loginpg.html';
+            });
+
+            profileIcon?.addEventListener('click', () => {
+                this.handleSignOut();
+            });
+        }
+
+        updateAuthUI() {
+            const signInBtn = this.shadowRoot.getElementById('signInBtn');
+            const profileIcon = this.shadowRoot.getElementById('profileIcon');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userEmail = localStorage.getItem('userEmail');
+
+            if (isLoggedIn && userEmail) {
+                signInBtn.style.display = 'none';
+                profileIcon.style.display = 'flex';
+            } else {
+                signInBtn.style.display = 'flex';
+                profileIcon.style.display = 'none';
+            }
+        }
+
+        handleSignOut() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            this.updateAuthUI();
+            window.location.href = 'homepage.html';
+        }
+    }
+
+    // Register the custom element
+    customElements.define('navbar-component', NavbarComponent);
+</script> 

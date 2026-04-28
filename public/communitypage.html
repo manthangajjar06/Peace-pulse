@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeacePulse - Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="authComponent.css">
+  <script src="js/authComponent.js"></script>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      min-font-size: 14px;
+      -webkit-text-size-adjust: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-color: #2575fc;
+      --secondary-color: #6a11cb;
+      --text-color: #333;
+      --light-bg: #f4f4f9;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --min-font-size: 14px;
+    }
+
+    body {
+      line-height: 1.6;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      overflow-x: hidden;
+      min-width: 320px;
+      max-width: 100vw;
+      font-size: var(--min-font-size);
+      -webkit-text-size-adjust: none;
+      touch-action: manipulation;
+      cursor: default;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 10px;
+      left: 5%;
+      right: 5%;
+      background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      padding: 15px 25px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    .navbar .logo {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 30px;
+      position: relative;
+      height: 100%;
+    }
+
+    .nav-links a {
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      color: var(--white);
+      font-weight: 500;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(4px) saturate(180%);
+      -webkit-backdrop-filter: blur(4px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.50);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar.scrolled .logo {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .navbar.scrolled .nav-links a {
+      color: var(--text-color);
+      text-shadow: none;
+    }
+
+    .navbar.scrolled .nav-links .signupbtn {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links .signupbtn {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links .signupbtn:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-icon {
+      width: 35px;
+      height: 35px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      margin: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .profile-icon {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .signupbtn {
+      background-color: #0288d1; /* Matching blue for buttons */
+      color: #fff;
+      padding: 10px 20px;
+      margin-top: 40px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .profile-icon {
+      width: clamp(35px, 5vw, 45px);
+      height: clamp(35px, 5vw, 45px);
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-icon:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      min-width: 280px;
+      display: none;
+      z-index: 1000;
+      padding: 0;
+      transform-origin: top right;
+      animation: dropdownFade 0.3s ease;
+    }
+
+    .profile-dropdown.active {
+      display: block;
+    }
+
+    .profile-info {
+      padding: 20px;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .profile-header h3 {
+      color: #2575fc;
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    .profile-details {
+      margin: 20px 0;
+    }
+
+    .profile-field {
+      margin-bottom: 15px;
+    }
+
+    .profile-field label {
+      display: block;
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .profile-value {
+      font-size: 1em;
+      color: #333;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+
+    .profile-actions {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 15px;
+      color: #ff4444;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255, 68, 68, 0.2);
+    }
+
+    @keyframes dropdownFade {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .loginbtn:hover {
+      background-color: #01579b; /* Darker blue on hover */
+    }
+
+    .signupbtn:hover {
+      background-color: #01579b; /* Darker blue on hover */
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(180deg, var(--primary-color), var(--white));
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 5% 40px;
+      margin-top: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: cover;
+      opacity: 0.1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      animation: fadeIn 1.2s ease-out;
+      opacity: 0.9;
+    }
+
+    /* Community Section */
+    .community-section {
+      padding: 60px 5%;
+      max-width: 1400px;
+      margin: -60px auto 0;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 300px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 20px;
+      height: fit-content;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .user-profile {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 2.5em;
+    }
+
+    .community-stats {
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+    }
+
+    /* Upload Button and Form Styles */
+    .upload-post-btn {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2);
+    }
+
+    .upload-post-btn i {
+      font-size: 1.1rem;
+    }
+
+    .upload-post-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 117, 252, 0.3);
+      background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    }
+
+    .upload-post-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(37, 117, 252, 0.2);
+    }
+
+    #postForm {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    #postForm:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .image-preview-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .image-preview-wrapper {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .image-preview:hover {
+      transform: scale(1.05);
+    }
+
+    .remove-image {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: #ff4444;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .remove-image:hover {
+      background: #ff4444;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .custom-file-label {
+      display: inline-block;
+      padding: 12px 20px;
+      background: rgba(37, 117, 252, 0.1);
+      color: var(--primary-color);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 15px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .custom-file-label:hover {
+      background: rgba(37, 117, 252, 0.2);
+      transform: translateY(-2px);
+    }
+
+    #postText {
+      width: 100%;
+      min-height: 120px;
+      padding: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-size: 1rem;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: rgba(244, 244, 249, 0.5);
+      margin-bottom: 15px;
+    }
+
+    #postText:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+      background: white;
+    }
+
+    .posts-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .post {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .post:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .post-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .post-header .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2em;
+    }
+
+    .post-header .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-header .username {
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .post-header .post-time {
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    .post-content {
+      margin-bottom: 20px;
+    }
+
+    .post-content p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    .post-images {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .post-image {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .post-image:hover {
+      transform: scale(1.02);
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 15px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .post-actions button {
+      background: none;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      color: #666;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .post-actions button:hover {
+      background: rgba(37, 117, 252, 0.1);
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .post-actions button i {
+      font-size: 1.2em;
+    }
+
+    .like-button.liked {
+      color: #e74c3c;
+    }
+
+    .like-button.liked i {
+      animation: likeAnimation 0.3s ease forwards;
+    }
+
+    .comment-section {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .comment-section input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .comment-section input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.1);
+    }
+
+    .comments-list {
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .comment {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.02);
+      transition: background-color 0.3s ease;
+    }
+
+    .comment:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .comment strong {
+      color: var(--primary-color);
+      margin-right: 5px;
+    }
+
+    .comment small {
+      display: block;
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    /* Share Modal Styles */
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--white);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      min-width: 300px;
+    }
+
+    .share-modal.active {
+      display: block;
+      animation: modalFadeIn 0.3s ease forwards;
+    }
+
+    .share-modal h3 {
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .share-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .share-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .share-option:hover {
+      background: rgba(37, 117, 252, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .share-option i {
+      font-size: 1.5em;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.active {
+      display: block;
+      animation: overlayFadeIn 0.3s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes likeAnimation {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    @keyframes overlayFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .posts-container {
+        padding: 10px;
+      }
+
+      .post {
+        padding: 15px;
+      }
+
+      .post-images {
+        grid-template-columns: 1fr;
+      }
+
+      .share-modal {
+        width: 90%;
+        max-width: none;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 50px 5%;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .footer-section {
+      width: 100%;
+      max-width: 250px;
+      margin-bottom: 30px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      color: #2575fc;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+      color: #ccc;
+      font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+    }
+
+    .footer-section ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-section ul li a:hover {
+      color: #2575fc;
+    }
+
+    .footer-section input[type="email"] {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 30px;
+      margin-bottom: 10px;
+    }
+
+    .footer-section input[type="email"]::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-section button {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .footer-section button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom .social-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom .social-links a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+
+    .footer-bottom .social-links a:hover {
+      color: #2575fc;
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-section {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>  
+</head>
+<body>
+  <!-- Replace navbar with dynamic header loader -->
+  <div id="header"></div>
+  <script>
+    // Load the common header and initialize AuthComponent
+    fetch('common-header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+        
+        // Manually initialize AuthComponent because inline scripts in fetched HTML aren't executed
+        if (typeof AuthComponent !== 'undefined') {
+          new AuthComponent('auth-container');
+        } else {
+          var script = document.createElement('script');
+          script.src = 'js/authComponent.js';
+          script.onload = function() {
+            new AuthComponent('auth-container');
+          };
+          document.head.appendChild(script);
+        }
+  
+        // Initialize navbar scroll behavior
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+          window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error loading header:', error);
+        // Instead of reloading, show a warning message in the console
+        alert("Failed to load the navbar. Please try refreshing manually.");
+      });
+  </script>
+  
+
+  <section class="hero">
+    <h1>Community</h1>
+    <p>Connect, share, and grow with others on their mental wellness journey</p>
+  </section>
+
+  <section class="community-section">
+    <aside class="sidebar">
+      <div class="user-profile">
+        <div class="profile-image">
+          <i class="fas fa-user"></i>
+        </div>
+        <h3 id="userGreeting">Welcome Back</h3>
+        <p id="userEmail">Share your journey with the community</p>
+      </div>
+      <div class="community-stats">
+        <div class="stat-item">
+          <span>Posts</span>
+          <span>24</span>
+        </div>
+        <div class="stat-item">
+          <span>Connections</span>
+          <span>156</span>
+        </div>
+        <div class="stat-item">
+          <span>Support Given</span>
+          <span>89</span>
+        </div>
+      </div>
+      <!-- New Upload Post Button -->
+      <button id="uploadPostBtn" class="upload-post-btn">
+        <i class="fas fa-plus-circle"></i>
+        Create Post
+      </button>
+    </aside>    
+
+    <main class="main-content">
+      <div class="container">
+        <form id="postForm" class="post-form">
+          <div id="imagePreviewContainer" class="image-preview-container"></div>
+          <textarea id="postText" placeholder="Share your thoughts..." required maxlength="1000"></textarea>
+          <label for="imageInput" class="custom-file-label">Choose Files</label>
+          <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+          <button type="submit" class="upload-post-btn">Post</button>
+        </form>
+    
+        <div id="posts-container" class="posts-container">
+          <!-- Posts will be dynamically loaded here -->
+        </div>
+      </div>
+    </main>
+    
+  </section>
+
+  <footer>
+    <div class="footer-content">
+        <div class="footer-section about-us">
+            <h3>About Us</h3>
+            <p>PeacePulse is your trusted companion for mental wellness and personal growth. We aim to provide a supportive space to help you navigate your mental health journey.</p>
+        </div>
+        <div class="footer-section quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="MISSIONPAGE.HTML">Our Mission</a></li>
+                <li><a href="ftrpg.html">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section contact-info">
+            <h3>Contact Info</h3>
+            <ul>
+                <li>Email: <a href="mailto:info@peacepulse.com">info@peacepulse.com</a></li>
+                <li>Phone: +91 98252 31346</li>
+            </ul>
+        </div>
+        <div class="footer-section newsletter">
+            <h3>Stay Updated</h3>
+            <p>Sign up for our newsletter to get the latest updates and tips for mental wellness.</p>
+            <form action="#" method="POST">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank" title="Facebook">Facebook</a>
+            <a href="https://twitter.com" target="_blank" title="Twitter">Twitter</a>
+            <a href="https://instagram.com" target="_blank" title="Instagram">Instagram</a>
+        </div>
+        <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Add share modal structure -->
+  <div class="modal-overlay" id="shareOverlay"></div>
+  <div class="share-modal" id="shareModal">
+    <h3>Share this post</h3>
+    <div class="share-options">
+      <div class="share-option" data-platform="facebook">
+        <i class="fab fa-facebook"></i>
+        <span>Facebook</span>
+      </div>
+      <div class="share-option" data-platform="twitter">
+        <i class="fab fa-twitter"></i>
+        <span>Twitter</span>
+      </div>
+      <div class="share-option" data-platform="whatsapp">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </div>
+      <div class="share-option" data-platform="copy">
+        <i class="fas fa-link"></i>
+        <span>Copy Link</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="authComponent.js"></script>
+  <script>
+    // Example: After a successful login, store the token in localStorage.
+    // localStorage.setItem('token', token);
+  
+    async function updateUserGreeting() {
+      const greetingElement = document.getElementById('userGreeting');
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        greetingElement.textContent = 'Welcome to our Community!';
+        return;
+      }
+      
+      try {
+        // Call the API endpoint to get the user's profile
+        const response = await fetch('/api/user-profile', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user profile');
+        }
+        const userData = await response.json();
+        // Update greeting using the first name
+        greetingElement.textContent = `Welcome, ${userData.firstName}!`;
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        greetingElement.textContent = 'Welcome to our Community!';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', updateUserGreeting);
+  </script>
+  <script>
+    document.getElementById('uploadPostBtn').addEventListener('click', function() {
+  const postForm = document.getElementById('postForm');
+  // Toggle visibility with smooth scroll into view
+  if (postForm.style.display === 'none' || postForm.style.display === '') {
+    postForm.style.display = 'block';
+    postForm.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    postForm.style.display = 'none';
+  }
+});
+  </script>
+  <script>
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+      const files = event.target.files;
+      const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+      imagePreviewContainer.innerHTML = ''; // Clear existing previews
+
+      if (files.length > 10) {
+        alert('You can only upload a maximum of 10 images.');
+        document.getElementById('imageInput').value = ''; // Clear the file input
+        return;
+      }
+
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imageWrapper = document.createElement('div');
+          imageWrapper.classList.add('image-preview-wrapper');
+
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.classList.add('image-preview');
+
+          const removeButton = document.createElement('button');
+          removeButton.classList.add('remove-image');
+          removeButton.innerHTML = '&times;';
+          removeButton.onclick = function() {
+            imageWrapper.remove();
+            // Remove the file from the input
+            const dataTransfer = new DataTransfer();
+            Array.from(files).forEach((f, i) => {
+              if (i !== index) dataTransfer.items.add(f);
+            });
+            document.getElementById('imageInput').files = dataTransfer.files;
+          };
+
+          imageWrapper.appendChild(img);
+          imageWrapper.appendChild(removeButton);
+          imagePreviewContainer.appendChild(imageWrapper);
+        };
+        reader.onerror = function() {
+          console.error('Error reading file:', file.name);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+  <script>
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append('caption', document.getElementById('postText').value);
+      const files = document.getElementById('imageInput').files;
+      Array.from(files).forEach(file => {
+        formData.append('images', file);
+      });
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          const newPost = await response.json();
+          displayPost(newPost);
+          alert('Post uploaded successfully!');
+        } else {
+          const errorData = await response.json();
+          console.error('Upload failed:', errorData);
+          alert('Failed to upload post.');
+        }
+      } catch (error) {
+        console.error('Error during upload:', error);
+        alert('An error occurred during upload.');
+      }
+    });
+  </script>
+  <script>
+    // Load posts when the page loads
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        const response = await fetch('/posts', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        
+        if (response.ok) {
+          const posts = await response.json();
+          posts.forEach(post => displayPost(post));
+        } else {
+          console.error('Failed to load posts');
+        }
+      } catch (error) {
+        console.error('Error loading posts:', error);
+      }
+    });
+
+    // Handle post form submission
+    document.getElementById('postForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append('caption', document.getElementById('postText').value);
+      
+      const files = document.getElementById('imageInput').files;
+      Array.from(files).forEach(file => {
+        formData.append('images', file);
+      });
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          const newPost = await response.json();
+          displayPost(newPost);
+          // Clear form
+          document.getElementById('postText').value = '';
+          document.getElementById('imageInput').value = '';
+          document.getElementById('imagePreviewContainer').innerHTML = '';
+          document.getElementById('postForm').style.display = 'none';
+          alert('Post uploaded successfully!');
+        } else {
+          const errorData = await response.json();
+          console.error('Upload failed:', errorData);
+          alert('Failed to upload post.');
+        }
+      } catch (error) {
+        console.error('Error during upload:', error);
+        alert('An error occurred during upload.');
+      }
+    });
+
+    function displayPost(post) {
+      const postsContainer = document.getElementById('posts-container');
+      const postElement = document.createElement('div');
+      postElement.classList.add('post');
+      
+      const userInitial = post.userName ? post.userName.charAt(0).toUpperCase() : 'A';
+      const imagesHtml = post.images.map(imagePath => 
+        `<img src="${imagePath}" class="post-image" alt="Post Image" loading="lazy">`
+      ).join('');
+      
+      postElement.innerHTML = `
+        <div class="post-header">
+          <div class="user-info">
+            <div class="user-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="user-details">
+              <span class="username">${post.userName || "Anonymous"}</span>
+              <span class="post-time">${new Date(post.uploadedAt).toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-content">
+          <p>${post.caption}</p>
+          <div class="post-images">${imagesHtml}</div>
+        </div>
+        <div class="post-actions">
+          <button class="like-button ${post.liked ? 'liked' : ''}" onclick="likePost('${post.id}')">
+            <i class="fas fa-heart"></i> ${post.likes} Likes
+          </button>
+          <button class="comment-button" onclick="toggleComments('${post.id}')">
+            <i class="fas fa-comment"></i> Comments
+          </button>
+          <button class="share-button" onclick="showShareModal('${post.id}')">
+            <i class="fas fa-share"></i> Share
+          </button>
+        </div>
+        <div class="comment-section" id="comments-${post.id}" style="display: none;">
+          <input type="text" 
+                 placeholder="Write a comment..." 
+                 onkeypress="addComment(event, '${post.id}')"
+                 onfocus="this.placeholder = ''"
+                 onblur="this.placeholder = 'Write a comment...'">
+          <div class="comments-list">
+            ${post.comments.map(comment => `
+              <div class="comment">
+                <strong>${comment.userName}</strong>
+                ${comment.text}
+                <small>${new Date(comment.commentedAt).toLocaleString()}</small>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      postsContainer.prepend(postElement);
+    }
+
+    function likePost(postId) {
+      fetch(`/like/${postId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          const likeButton = document.querySelector(`.like-button[onclick="likePost('${postId}')"]`);
+          likeButton.classList.add('liked');
+          likeButton.innerHTML = `<i class="fas fa-heart"></i> ${data.likes} Likes`;
+        }
+      })
+      .catch(error => console.error('Error liking post:', error));
+    }
+
+    function toggleComments(postId) {
+      const commentSection = document.getElementById(`comments-${postId}`);
+      commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addComment(event, postId) {
+      if (event.key === 'Enter') {
+        const commentText = event.target.value;
+        fetch(`/comment/${postId}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ text: commentText })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const commentsList = document.querySelector(`#comments-${postId} .comments-list`);
+            commentsList.innerHTML += `
+              <div class="comment">
+                <strong>${data.userName}</strong>: ${commentText}
+                <small>${new Date().toLocaleString()}</small>
+              </div>`;
+            event.target.value = '';
+          }
+        })
+        .catch(error => console.error('Error adding comment:', error));
+      }
+    }
+
+    // Share functionality
+    function showShareModal(postId) {
+      const modal = document.getElementById('shareModal');
+      const overlay = document.getElementById('shareOverlay');
+      modal.dataset.postId = postId;
+      modal.classList.add('active');
+      overlay.classList.add('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('shareOverlay').addEventListener('click', function() {
+      const modal = document.getElementById('shareModal');
+      const overlay = document.getElementById('shareOverlay');
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // Handle share option clicks
+    document.querySelectorAll('.share-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const platform = this.dataset.platform;
+        const postId = document.getElementById('shareModal').dataset.postId;
+        const postUrl = `${window.location.origin}/post/${postId}`;
+        
+        switch(platform) {
+          case 'facebook':
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`, '_blank');
+            break;
+          case 'twitter':
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}`, '_blank');
+            break;
+          case 'whatsapp':
+            window.open(`https://wa.me/?text=${encodeURIComponent(postUrl)}`, '_blank');
+            break;
+          case 'copy':
+            navigator.clipboard.writeText(postUrl)
+              .then(() => alert('Link copied to clipboard!'))
+              .catch(err => console.error('Failed to copy link:', err));
+            break;
+        }
+        
+        // Close modal after sharing
+        document.getElementById('shareModal').classList.remove('active');
+        document.getElementById('shareOverlay').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

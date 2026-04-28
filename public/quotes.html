@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quotes - PeacePulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/authComponent.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            min-font-size: 14px;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --light-bg: #f4f4f9;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --min-font-size: 14px;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-width: 320px;
+            max-width: 100vw;
+            font-size: var(--min-font-size);
+            -webkit-text-size-adjust: none;
+            touch-action: manipulation;
+            cursor: default;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 10px;
+            left: 5%;
+            right: 5%;
+            background: rgba(255, 255, 255, 0.15); /* Subtle transparent background */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Soft, white border */
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            padding: 15px 25px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.50);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            height: 100%;
+        }
+
+        .nav-links a {
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            color: var(--white);
+            font-weight: 500;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--text-color);
+            text-shadow: none;
+        }
+
+        .navbar.scrolled .nav-links .signupbtn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .nav-links .signupbtn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links .signupbtn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            margin: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.scrolled .profile-icon {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-icon {
+            width: clamp(35px, 5vw, 45px);
+            height: clamp(35px, 5vw, 45px);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            min-width: 280px;
+            display: none;
+            z-index: 1000;
+            padding: 0;
+            transform-origin: top right;
+            animation: dropdownFade 0.3s ease;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            background: linear-gradient(180deg, var(--primary-color), var(--white));
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 5% 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 50px 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+            z-index: -1;
+        }
+
+        .quote-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .quote-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        .quote-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 20px;
+        }
+
+        .quote-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 117, 252, 0.1);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 4em;
+            color: var(--primary-color);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(37, 117, 252, 0.2);
+        }
+
+        .quote-card p {
+            font-size: 1.2em;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-card .author {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-style: italic;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Share Quote Section */
+        .share-quote-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 117, 252, 0.1);
+        }
+
+        .share-quote-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .share-quote-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .quote-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quote-form textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid rgba(37, 117, 252, 0.1);
+            border-radius: 15px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            height: 150px;
+            resize: none;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .quote-form textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+            outline: none;
+        }
+
+        .quote-form button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quote-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: var(--white);
+            padding: 50px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .quote-section {
+                padding: 60px 5%;
+            }
+
+            .quote-form {
+                margin: 20px;
+            }
+
+            .quote-list {
+                padding: 20px;
+            }
+
+            .share-quote-section {
+                padding: 30px;
+                margin: 0 20px;
+            }
+
+            .quote-card {
+                padding: 25px;
+            }
+        }
+
+        /* Sign In Button Styling */
+        .nav-links .sign-in-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links .sign-in-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navbar Transition Effect */
+        .navbar,
+        .nav-links a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Insert this at the top of your <body> -->
+<div id="header"></div>
+<script>
+  // Load the common header (which should contain your navbar and an element with id "auth-container")
+  fetch('common-header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      // Initialize the AuthComponent for the authentication UI
+      if (typeof AuthComponent !== 'undefined') {
+        new AuthComponent('auth-container');
+      } else {
+        // Dynamically load authComponent.js if not already loaded
+        const script = document.createElement('script');
+        script.src = 'js/authComponent.js';
+        script.onload = function() {
+          new AuthComponent('auth-container');
+        };
+        document.head.appendChild(script);
+      }
+
+      // Set up navbar scroll effect to add a "scrolled" class when page is scrolled
+      const navbar = document.querySelector('.navbar');
+      if (navbar) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error loading header:', error);
+      alert("Failed to load header. Please refresh the page.");
+    });
+</script>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Inspirational Quotes</h1>
+            <p>Discover and share empowering words that inspire your journey</p>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <h2>Inspirational Quotes</h2>
+        <div class="quote-list" id="quoteList">
+            <!-- Sample Quotes -->
+            <div class="quote-card">
+                <p>"The only way to do great work is to love what you do."</p>
+                <div class="author">- Steve Jobs</div>
+            </div>
+            <div class="quote-card">
+                <p>"Success is not the key to happiness. Happiness is the key to success."</p>
+                <div class="author">- Albert Schweitzer</div>
+            </div>
+            <div class="quote-card">
+                <p>"The best way to predict the future is to create it."</p>
+                <div class="author">- Peter Drucker</div>
+            </div>
+        </div>
+
+        <div class="share-quote-section">
+            <h2>Share Your Inspirational Quote</h2>
+            <div class="quote-form">
+                <textarea id="quoteInput" placeholder="Enter your inspirational quote here..."></textarea>
+                <button onclick="addQuote()">Share Quote</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="ftrpg.html">Features</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to render quotes from localStorage
+        function renderQuotes() {
+          const quoteList = document.getElementById('quoteList');
+          // Get the stored quotes (or initialize to an empty array)
+          let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
+          // Clear existing list
+          quoteList.innerHTML = '';
+          // Render each quote
+          quotes.forEach(quote => {
+            const quoteCard = document.createElement('div');
+            quoteCard.className = 'quote-card';
+            quoteCard.innerHTML = `
+              <p>"${quote.text}"</p>
+              <div class="author">- ${quote.author || 'Anonymous'}</div>
+              <button class="delete-quote-btn" data-id="${quote.id}">Delete</button>
+            `;
+            quoteList.appendChild(quoteCard);
+          });
+        }
+      
+        // Function to add a new quote and persist it
+        function addQuote() {
+          const quoteInput = document.getElementById('quoteInput');
+          const quoteText = quoteInput.value.trim();
+          if (quoteText) {
+            // Retrieve existing quotes
+            let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
+            // Create a new quote object with a unique ID
+            const newQuote = {
+              id: Date.now(),
+              text: quoteText,
+              author: 'Anonymous'
+            };
+            quotes.push(newQuote);
+            localStorage.setItem('quotes', JSON.stringify(quotes));
+            // Re-render the quotes list
+            renderQuotes();
+            quoteInput.value = '';
+          }
+        }
+      
+        // Event listener for the "Share Quote" button
+        document.querySelector('.quote-form button').addEventListener('click', function(e) {
+          e.preventDefault();
+          addQuote();
+        });
+      
+        // Allow adding quote using the Enter key (without Shift)
+        document.getElementById('quoteInput').addEventListener('keypress', function(e) {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            addQuote();
+          }
+        });
+      
+        // Event delegation for delete buttons
+        document.getElementById('quoteList').addEventListener('click', function(e) {
+          if (e.target.classList.contains('delete-quote-btn')) {
+            const idToDelete = e.target.getAttribute('data-id');
+            let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
+            quotes = quotes.filter(quote => quote.id != idToDelete);
+            localStorage.setItem('quotes', JSON.stringify(quotes));
+            renderQuotes();
+          }
+        });
+      
+        // On page load, render all stored quotes
+        document.addEventListener('DOMContentLoaded', renderQuotes);
+      </script>      
+</body>
+</html>

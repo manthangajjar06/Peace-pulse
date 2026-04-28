@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeacePulse - Spiritual Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/authComponent.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            min-font-size: 14px;
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --text-color: #333;
+            --light-bg: #f4f4f9;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --min-font-size: 14px;
+        }
+
+        body {
+            line-height: 1.6;
+            background: linear-gradient(180deg, var(--primary-color), var(--white));
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* Navbar styles */
+        #header .navbar {
+            position: fixed;
+            top: 10px;
+            left: 5%;
+            right: 5%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            padding: 15px 25px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        #header .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px) saturate(180%);
+            -webkit-backdrop-filter: blur(4px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.50);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #header .navbar .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        #header .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            height: 100%;
+        }
+
+        #header .nav-links a {
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            color: var(--white);
+            font-weight: 500;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        #header .navbar.scrolled .logo {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        #header .navbar.scrolled .nav-links a {
+            color: var(--text-color);
+            text-shadow: none;
+        }
+
+        #header .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        #header .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        #header .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links .sign-in-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: clamp(var(--min-font-size), 1.2vw, 1rem);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links .sign-in-btn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar.scrolled .nav-links .signupbtn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+            color: var(--white);
+        }
+
+        .profile-icon {
+            width: clamp(35px, 5vw, 45px);
+            height: clamp(35px, 5vw, 45px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.scrolled .profile-icon {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .profile-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-icon.show {
+            display: flex;
+        }
+
+        .signupbtn.hide {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 5% 80px;
+            text-align: center;
+            color: var(--white);
+            background: linear-gradient(170deg, var(--primary-color), transparent);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Books Section */
+        .books-section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-out;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(37, 117, 252, 0.2);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+            margin-bottom: 20px;
+        }
+
+        .book-info {
+            padding: 0 20px;
+        }
+
+        .book-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .book-info p {
+            color: var(--text-color);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .read-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .read-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: var(--white);
+            padding: 50px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .books-section {
+                padding: 40px 20px;
+            }
+
+            .book-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+<script>
+  // Load the common header (which should contain your navbar and an element with id "auth-container")
+  fetch('common-header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      // Initialize the AuthComponent for the authentication UI
+      if (typeof AuthComponent !== 'undefined') {
+        new AuthComponent('auth-container');
+      } else {
+        // Dynamically load authComponent.js if not already loaded
+        const script = document.createElement('script');
+        script.src = 'js/authComponent.js';
+        script.onload = function() {
+          new AuthComponent('auth-container');
+        };
+        document.head.appendChild(script);
+      }
+
+      // Set up navbar scroll effect to add a "scrolled" class when page is scrolled
+      const navbar = document.querySelector('.navbar');
+      if (navbar) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error loading header:', error);
+      alert("Failed to load header. Please refresh the page.");
+    });
+</script>
+
+    <section class="hero">
+        <h1>Spiritual Books</h1>
+        <p>Discover ancient wisdom and find inner peace through sacred texts from various traditions</p>
+    </section>
+
+    <section class="books-section">
+        <div class="books-grid">
+            <div class="book-card">
+                <img src="bhagvadgeeta.jpg" alt="Bhagavad Gita" class="book-image">
+                <div class="book-info">
+                    <h3>Bhagavad Gita</h3>
+                    <p>Ancient Hindu scripture that is part of the epic Mahabharata, containing spiritual wisdom and guidance for life.</p>
+                    <a href="bhagwadgeeta.pdf" class="read-button">Read Now</a>
+                </div>
+            </div>
+
+            <div class="book-card">
+                <img src="quran.avif" alt="The Holy Quran" class="book-image">
+                <div class="book-info">
+                    <h3>The Holy Quran</h3>
+                    <p>The central religious text of Islam, believed to be a revelation from Allah to the Prophet Muhammad.</p>
+                    <a href="quran.pdf" class="read-button">Read Now</a>
+                </div>
+            </div>
+
+            <div class="book-card">
+                <img src="bible.jfif" alt="The Holy Bible" class="book-image">
+                <div class="book-info">
+                    <h3>The Holy Bible</h3>
+                    <p>A collection of sacred texts and scriptures central to Christianity, containing both the Old and New Testaments.</p>
+                    <a href="bible.pdf" class="read-button">Read Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="ftrpg.html">Features</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PeacePulse. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
