@@ -8,7 +8,7 @@ PeacePulse is a full-stack mental wellness web application built with **Node.js*
 
 ## 🎬 Project Demo Video
 
-![Project Demo Video](Peace-pulse/project_video.mp4)
+https://github.com/manthangajjar06/Peace-pulse/blob/main/project_video.mp4
 
 ---
 
