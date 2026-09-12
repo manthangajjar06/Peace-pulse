@@ -461,7 +461,7 @@ MongoDB Compass is a free visual tool to browse your database — great for debu
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/peace-pulse.git
+git clone https://github.com/manthangajjar06/peace-pulse.git
 cd peace-pulse
 
 # 2. Install dependencies
